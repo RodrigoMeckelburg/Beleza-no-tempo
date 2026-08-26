@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#181719">
-<title>Bella — Beauty App</title>
+<title>Beleza no Tempo - app</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
@@ -306,28 +306,35 @@ a{text-decoration:none;color:inherit}
 .bottom button{
   position:relative;
   border:0;background:none;color:#8f8b95;
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  gap:5px;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:12px;
   transition:color .2s;
 }
 .bottom .nav-label{font-size:8px;font-weight:700;letter-spacing:.01em}
-.bottom .nav-icon{
-  width:28px;height:28px;
-  display:grid;place-items:center;
-  border-radius:10px;
-  transition:.25s;
-}
-.bottom .nav-icon svg{width:18px;height:18px;display:block}
-.bottom button.active:not(#navBooking){color:var(--pink)}
-.bottom button.active:not(#navBooking) .nav-icon{background:rgba(242,122,197,.16);color:var(--pink)}
 
-/* Botão de Agenda em destaque, flutuando acima da doca (ação principal) */
-.bottom button#navBooking{color:#fff;padding-top:18px}
-.bottom button#navBooking .nav-icon{
+/* O ícone fica sempre posicionado de forma absoluta dentro do botão —
+   assim dá pra animar suavemente entre o estado normal e o estado ativo
+   (círculo subindo), em QUALQUER um dos 4 botões. */
+.bottom .nav-icon{
   position:absolute;
-  left:50%;top:-28px;
+  left:50%;top:14px;
   transform:translateX(-50%);
+  width:28px;height:28px;
+  border-radius:10px;
+  display:grid;place-items:center;
+  color:inherit;
+  background:transparent;
+  box-shadow:none;
+  z-index:2;
+  transition:top .35s cubic-bezier(.34,1.56,.64,1),width .3s,height .3s,
+             border-radius .3s,background .3s,box-shadow .3s,color .3s;
+}
+.bottom .nav-icon svg{width:18px;height:18px;display:block;transition:width .3s,height .3s}
+
+/* Estado ativo: o ícone "sobe" e vira um círculo rosa flutuante */
+.bottom button.active{color:var(--pink)}
+.bottom button.active .nav-icon{
+  top:-28px;
   width:52px;height:52px;
   border-radius:50%;
   background:linear-gradient(150deg,var(--pink),var(--pink2));
@@ -335,8 +342,7 @@ a{text-decoration:none;color:inherit}
   box-shadow:0 14px 26px rgba(242,122,197,.5),0 0 0 6px var(--black);
   z-index:3;
 }
-.bottom button#navBooking .nav-icon svg{width:22px;height:22px}
-.bottom button#navBooking.active .nav-icon{transform:translateX(-50%) scale(1.07)}
+.bottom button.active .nav-icon svg{width:22px;height:22px}
 
 /* other screens */
 .page{padding:18px}
