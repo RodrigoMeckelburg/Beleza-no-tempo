@@ -357,6 +357,104 @@ a{text-decoration:none;color:inherit}
   border-radius:13px;padding:13px;margin-top:15px;font-weight:700;font-size:10px;
 }
 
+/* Tela de agendamento — cartão escuro estilo mockup */
+.booking-card{
+  background:var(--black2);
+  color:#fff;
+  border-radius:26px;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 25px 60px rgba(15,10,15,.35);
+}
+.booking-card:before{
+  content:"";
+  position:absolute;
+  width:200px;height:200px;
+  right:-95px;top:-95px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 0 0 25px rgba(255,255,255,.02),0 0 0 55px rgba(255,255,255,.015);
+  z-index:1;
+}
+.booking-decor{
+  position:absolute;right:-8px;bottom:-6px;
+  width:140px;height:140px;
+  opacity:.07;z-index:1;pointer-events:none;
+}
+.booking-pro{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  position:relative;z-index:2;
+}
+.booking-pro h3{
+  font-family:"Playfair Display",serif;
+  font-size:19px;margin:0 0 6px;letter-spacing:-.02em;
+}
+.booking-loc{
+  display:flex;align-items:center;gap:4px;
+  font-size:9px;color:#b0acb4;
+}
+.booking-avatar-wrap{position:relative;width:50px;height:50px;flex-shrink:0}
+.booking-avatar{
+  width:100%;height:100%;border-radius:16px;object-fit:cover;
+  border:2px solid rgba(255,255,255,.14);
+}
+.booking-avatar-fallback{
+  display:none;position:absolute;inset:0;border-radius:16px;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));
+  color:#fff;align-items:center;justify-content:center;font-size:19px;
+}
+.booking-avatar-wrap.fallback .booking-avatar-fallback{display:flex}
+.booking-card label{
+  display:block;font-size:8px;font-weight:700;color:#a29dab;
+  letter-spacing:.06em;margin:16px 0 8px;position:relative;z-index:2;
+}
+.booking-card input,.booking-card select{
+  width:100%;padding:12px;border-radius:13px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.06);color:#fff;
+  outline:none;font-size:11px;position:relative;z-index:2;
+}
+.booking-card input::placeholder{color:#8b8790}
+.booking-card input:focus,.booking-card select:focus{border-color:var(--pink)}
+.booking-card select option{background:#232228;color:#fff}
+.date-strip{
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+  position:relative;z-index:2;padding-bottom:2px;
+}
+.date-strip::-webkit-scrollbar{display:none}
+.date-pill{
+  flex:0 0 auto;min-width:44px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:10px 6px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);color:#cfcbd3;
+}
+.date-pill .dow{font-size:8px;font-weight:600;text-transform:uppercase;opacity:.85}
+.date-pill .dnum{font-size:13px;font-weight:700}
+.date-pill.selected{background:var(--pink);border-color:var(--pink);color:#fff}
+.times-dark{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  position:relative;z-index:2;
+}
+.time-dark{
+  padding:11px 5px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.06);color:#fff;
+  font-size:9px;font-weight:600;
+}
+.time-dark.selected{background:var(--pink);border-color:var(--pink);color:#fff}
+.book-btn-dark{
+  width:100%;border:0;background:var(--pink);color:#fff;
+  border-radius:15px;padding:15px;margin-top:20px;
+  font-weight:700;font-size:10px;letter-spacing:.01em;
+  position:relative;z-index:2;
+  box-shadow:0 16px 32px rgba(242,122,197,.32);
+  transition:transform .18s,box-shadow .18s;
+}
+.book-btn-dark:hover{transform:translateY(-1px);box-shadow:0 20px 38px rgba(242,122,197,.4)}
+
 /* Sidebar (navegação do desktop) */
 #sidebar{
   display:none;
@@ -681,6 +779,45 @@ button.notification.theme-toggle{
     border-radius:26px;
   }
 
+  .booking-card{
+    max-width:650px;
+    margin:0 auto;
+    padding:34px;
+    border-radius:30px;
+  }
+
+  .booking-pro h3{
+    font-size:24px;
+  }
+
+  .booking-avatar-wrap{
+    width:64px;
+    height:64px;
+  }
+
+  .date-pill{
+    min-width:58px;
+    padding:14px 8px;
+  }
+
+  .date-pill .dow{
+    font-size:9px;
+  }
+
+  .date-pill .dnum{
+    font-size:16px;
+  }
+
+  .time-dark{
+    padding:14px 5px;
+    font-size:11px;
+  }
+
+  .book-btn-dark{
+    padding:17px;
+    font-size:12px;
+  }
+
   /* No computador usamos uma navegação superior/desktop.
      A barra inferior é desnecessária. */
   .bottom{
@@ -779,17 +916,7 @@ button.notification.theme-toggle{
       <!-- HOME -->
       <section id="homeScreen">
         <div class="topbar">
-          <div class="topline">
-            <div class="brand">
-              <div class="brand-mark">B</div>
-              <strong>Beleza no Tempo</strong>
-            </div>
-            <div style="display:flex;gap:8px">
-              <button class="notification theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
-              <button class="notification" onclick="openModal()">♧</button>
-            </div>
-          </div>
-
+          <button class="notification theme-toggle" style="position:absolute;top:17px;right:18px;z-index:2" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
           <div class="greeting">
             <div class="date">SEG, 31 AGO</div>
             <h1>Olá, Isabella</h1>
@@ -912,7 +1039,30 @@ button.notification.theme-toggle{
             <h2>Agendar horário</h2>
           </div>
 
-          <div class="booking">
+          <div class="booking-card">
+            <svg class="booking-decor" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g fill="none" stroke="#ffffff" stroke-width="1">
+                <path d="M20 160 C20 120 40 100 40 60 C40 30 60 10 80 0"/>
+                <path d="M40 160 C40 130 65 115 65 80"/>
+                <path d="M60 160 C60 135 90 125 90 95"/>
+                <path d="M80 160 C90 140 120 135 130 105"/>
+                <circle cx="80" cy="0" r="3"/>
+                <circle cx="65" cy="80" r="2.5"/>
+                <circle cx="90" cy="95" r="2.5"/>
+              </g>
+            </svg>
+
+            <div class="booking-pro">
+              <div>
+                <h3>Beleza no Tempo</h3>
+                <span class="booking-loc">📍 Rua das Flores, 2828</span>
+              </div>
+              <div class="booking-avatar-wrap">
+                <img class="booking-avatar" src="foto-avatar.webp" alt="Beleza no Tempo" onerror="this.style.display='none';this.parentElement.classList.add('fallback')">
+                <span class="booking-avatar-fallback">✂</span>
+              </div>
+            </div>
+
             <label>NOME</label>
             <input id="name" placeholder="Como podemos te chamar?">
 
@@ -925,22 +1075,22 @@ button.notification.theme-toggle{
             </select>
 
             <label>DATA</label>
-            <input id="date" type="date">
+            <div class="date-strip" id="dateStrip"></div>
 
             <label>HORÁRIO</label>
-            <div class="times">
-              <button class="time" onclick="selectTime(this)">09:00</button>
-              <button class="time" onclick="selectTime(this)">10:00</button>
-              <button class="time" onclick="selectTime(this)">11:00</button>
-              <button class="time" onclick="selectTime(this)">13:00</button>
-              <button class="time" onclick="selectTime(this)">14:00</button>
-              <button class="time" onclick="selectTime(this)">15:00</button>
-              <button class="time" onclick="selectTime(this)">16:00</button>
-              <button class="time" onclick="selectTime(this)">17:00</button>
-              <button class="time" onclick="selectTime(this)">18:00</button>
+            <div class="times-dark">
+              <button class="time-dark" onclick="selectTime(this)">09:00</button>
+              <button class="time-dark" onclick="selectTime(this)">10:00</button>
+              <button class="time-dark" onclick="selectTime(this)">11:00</button>
+              <button class="time-dark" onclick="selectTime(this)">13:00</button>
+              <button class="time-dark" onclick="selectTime(this)">14:00</button>
+              <button class="time-dark" onclick="selectTime(this)">15:00</button>
+              <button class="time-dark" onclick="selectTime(this)">16:00</button>
+              <button class="time-dark" onclick="selectTime(this)">17:00</button>
+              <button class="time-dark" onclick="selectTime(this)">18:00</button>
             </div>
 
-            <button class="book-btn" onclick="confirmBooking()">Solicitar agendamento →</button>
+            <button class="book-btn-dark" onclick="confirmBooking()">Solicitar agendamento →</button>
           </div>
         </div>
       </section>
@@ -1040,11 +1190,36 @@ document.querySelectorAll(".side-item[data-view]").forEach(el=>{
 });
 
 function selectTime(btn){
-  document.querySelectorAll(".time").forEach(x=>x.classList.remove("selected"));
+  document.querySelectorAll(".time-dark").forEach(x=>x.classList.remove("selected"));
   btn.classList.add("selected");
 }
+function selectDate(btn){
+  document.querySelectorAll(".date-pill").forEach(x=>x.classList.remove("selected"));
+  btn.classList.add("selected");
+}
+function buildDateStrip(){
+  const strip=document.getElementById("dateStrip");
+  if(!strip) return;
+  const dias=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  const hoje=new Date();
+  let html="";
+  for(let i=0;i<5;i++){
+    const d=new Date(hoje);
+    d.setDate(hoje.getDate()+i);
+    const dow=dias[d.getDay()];
+    const dnum=String(d.getDate()).padStart(2,"0");
+    html+=`<button class="date-pill${i===0?" selected":""}" onclick="selectDate(this)"><span class="dow">${dow}</span><span class="dnum">${dnum}</span></button>`;
+  }
+  strip.innerHTML=html;
+}
+buildDateStrip();
 function confirmBooking(){
   const name=document.getElementById("name").value.trim() || "cliente";
+  const timeBtn=document.querySelector(".time-dark.selected");
+  if(!timeBtn){
+    alert("Escolha um horário para continuar.");
+    return;
+  }
   alert("Perfeito, "+name+"! Seu pedido de agendamento foi registrado.");
 }
 function openModal(){document.getElementById("modal").classList.add("show")}
@@ -1055,15 +1230,6 @@ function sendContact(){
   closeModal();
   alert("Obrigada, "+n+"! Em uma versão conectada ao WhatsApp, essa mensagem será enviada automaticamente.");
 }
-document.getElementById("date").min=new Date().toISOString().split("T")[0];
-
-function updateTime(){
-  const now=new Date();
-  document.getElementById("statusTime").textContent=
-    now.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-}
-updateTime(); setInterval(updateTime,30000);
-
 /* Tema claro/escuro */
 function applyTheme(theme){
   document.documentElement.setAttribute("data-theme", theme);
