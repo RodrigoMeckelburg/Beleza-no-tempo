@@ -91,7 +91,7 @@ a{text-decoration:none;color:inherit}
 .screen{
   height:calc(100% - 28px);
   overflow-y:auto;
-  padding-bottom:88px;
+  padding-bottom:118px;
   scrollbar-width:none;
 }
 .screen::-webkit-scrollbar{display:none}
@@ -287,32 +287,56 @@ a{text-decoration:none;color:inherit}
 .service strong{display:block;font-size:9px;margin-top:8px}
 .service span{font-size:8px;color:var(--gray)}
 
-/* Bottom Android navigation */
+/* Barra de navegação inferior — doca flutuante (mobile) */
 .bottom{
   position:fixed;
-  left:0;right:0;bottom:0;
-  height:78px;
-  background:var(--bottom-bg);
-  backdrop-filter:blur(15px);
-  border-top:1px solid var(--border);
+  left:16px;right:16px;
+  bottom:calc(14px + env(safe-area-inset-bottom));
+  height:70px;
+  background:var(--black);
+  border-radius:28px;
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+  align-items:stretch;
+  padding:0 6px;
   z-index:20;
+  box-shadow:0 22px 46px rgba(10,6,14,.4);
+  border:1px solid rgba(255,255,255,.07);
 }
 .bottom button{
-  border:0;background:none;color:#aaa7ac;
+  position:relative;
+  border:0;background:none;color:#8f8b95;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
-  gap:5px;font-size:8px;font-weight:600;
+  gap:5px;
+  transition:color .2s;
 }
-.bottom button .nav-icon{
-  width:29px;height:29px;
+.bottom .nav-label{font-size:8px;font-weight:700;letter-spacing:.01em}
+.bottom .nav-icon{
+  width:28px;height:28px;
   display:grid;place-items:center;
-  border-radius:10px;font-size:15px;
+  border-radius:10px;
+  transition:.25s;
 }
-.bottom button.active{color:var(--pink)}
-.bottom button.active .nav-icon{background:var(--soft)}
+.bottom .nav-icon svg{width:18px;height:18px;display:block}
+.bottom button.active:not(#navBooking){color:var(--pink)}
+.bottom button.active:not(#navBooking) .nav-icon{background:rgba(242,122,197,.16);color:var(--pink)}
+
+/* Botão de Agenda em destaque, flutuando acima da doca (ação principal) */
+.bottom button#navBooking{color:#fff;padding-top:18px}
+.bottom button#navBooking .nav-icon{
+  position:absolute;
+  left:50%;top:-28px;
+  transform:translateX(-50%);
+  width:52px;height:52px;
+  border-radius:50%;
+  background:linear-gradient(150deg,var(--pink),var(--pink2));
+  color:#fff;
+  box-shadow:0 14px 26px rgba(242,122,197,.5),0 0 0 6px var(--black);
+  z-index:3;
+}
+.bottom button#navBooking .nav-icon svg{width:22px;height:22px}
+.bottom button#navBooking.active .nav-icon{transform:translateX(-50%) scale(1.07)}
 
 /* other screens */
 .page{padding:18px}
@@ -488,6 +512,7 @@ a{text-decoration:none;color:inherit}
   background:var(--soft);color:var(--pink);
   display:grid;place-items:center;font-size:14px;
 }
+.side-icon svg{width:16px;height:16px;display:block}
 .side-footer{
   margin-top:auto;padding-top:18px;border-top:1px solid var(--border);
 }
@@ -890,10 +915,10 @@ button.notification.theme-toggle{
     </div>
 
     <nav class="side-nav">
-      <button class="side-item active" data-view="home"><span class="side-icon">⌂</span>Início</button>
-      <button class="side-item" data-view="services"><span class="side-icon">▦</span>Serviços</button>
-      <button class="side-item" data-view="booking"><span class="side-icon">□</span>Agenda</button>
-      <button class="side-item" data-view="profile"><span class="side-icon">♙</span>Perfil</button>
+      <button class="side-item active" data-view="home"><span class="side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10.5V19a1 1 0 0 0 1 1h3v-5.5h4V20h3a1 1 0 0 0 1-1v-8.5"/></svg></span>Início</button>
+      <button class="side-item" data-view="services"><span class="side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>Serviços</button>
+      <button class="side-item" data-view="booking"><span class="side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="3"/><path d="M3.5 10h17"/><path d="M8 3.2v4"/><path d="M16 3.2v4"/><circle cx="8.2" cy="14.3" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="14.3" r="1" fill="currentColor" stroke="none"/><circle cx="15.8" cy="14.3" r="1" fill="currentColor" stroke="none"/></svg></span>Agenda</button>
+      <button class="side-item" data-view="profile"><span class="side-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.5 20c1.3-4.2 4.1-6.3 7.5-6.3s6.2 2.1 7.5 6.3"/></svg></span>Perfil</button>
     </nav>
 
     <div class="side-footer">
@@ -1107,7 +1132,7 @@ button.notification.theme-toggle{
               <span class="pill">BELLA</span>
             </div>
             <div class="appointment-info">
-              <img class="avatar" src="foto-avatar.webp" alt="">
+              <img class="avatar" src="f" alt="">
               <div><strong>+2.000 clientes atendidas</strong><span>Uma experiência feita para você.</span></div>
             </div>
           </div>
@@ -1136,16 +1161,20 @@ button.notification.theme-toggle{
 
     <nav class="bottom">
       <button class="active" id="navHome" onclick="showHome()">
-        <span class="nav-icon">⌂</span>Início
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10.5V19a1 1 0 0 0 1 1h3v-5.5h4V20h3a1 1 0 0 0 1-1v-8.5"/></svg></span>
+        <span class="nav-label">Início</span>
       </button>
       <button id="navServices" onclick="showServices()">
-        <span class="nav-icon">▦</span>Serviços
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></svg></span>
+        <span class="nav-label">Serviços</span>
       </button>
       <button id="navBooking" onclick="showBooking()">
-        <span class="nav-icon">□</span>Agenda
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="3"/><path d="M3.5 10h17"/><path d="M8 3.2v4"/><path d="M16 3.2v4"/><circle cx="8.2" cy="14.3" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="14.3" r="1" fill="currentColor" stroke="none"/><circle cx="15.8" cy="14.3" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <span class="nav-label">Agenda</span>
       </button>
       <button id="navProfile" onclick="showProfile()">
-        <span class="nav-icon">♙</span>Perfil
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.5 20c1.3-4.2 4.1-6.3 7.5-6.3s6.2 2.1 7.5 6.3"/></svg></span>
+        <span class="nav-label">Perfil</span>
       </button>
     </nav>
 
@@ -1167,13 +1196,13 @@ button.notification.theme-toggle{
 
 <script>
 const screens=["homeScreen","servicesScreen","bookingScreen","profileScreen"];
-const navs=["navHome","navServices","navBooking","navProfile"];
+const navMap={home:"navHome",services:"navServices",booking:"navBooking",profile:"navProfile"};
 
 function show(which){
   screens.forEach(id=>document.getElementById(id).style.display="none");
-  navs.forEach(id=>document.getElementById(id).classList.remove("active"));
+  Object.values(navMap).forEach(id=>document.getElementById(id).classList.remove("active"));
   document.getElementById(which+"Screen").style.display="block";
-  document.getElementById("nav"+which[0].toUpperCase()+which.slice(1)).classList.add("active");
+  document.getElementById(navMap[which]).classList.add("active");
   document.querySelectorAll(".side-item[data-view]").forEach(el=>{
     el.classList.toggle("active", el.dataset.view===which);
   });
