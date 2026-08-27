@@ -905,6 +905,239 @@ button.notification.theme-toggle{
   float:right;border:0;background:var(--chip);color:var(--text);
   width:31px;height:31px;border-radius:50%;font-size:18px
 }
+
+/* ===== REDESIGN: SERVIÇOS ===== */
+.services-modern{
+  padding:18px 16px 28px;
+}
+.services-hero{
+  background:var(--black2);
+  color:#fff;
+  border-radius:26px;
+  padding:22px 20px 20px;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:16px;
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 22px 48px rgba(15,10,15,.20);
+}
+.services-hero:before{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-100px;top:-105px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,255,255,.018);
+}
+.services-hero:after{
+  content:"";
+  position:absolute;
+  width:120px;height:120px;
+  left:-75px;bottom:-75px;
+  border-radius:50%;
+  background:rgba(242,122,197,.10);
+  filter:blur(4px);
+}
+.services-hero-content{position:relative;z-index:2}
+.services-eyebrow{
+  color:var(--pink2);
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.services-hero h1{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  font-size:27px;
+  line-height:1.05;
+  letter-spacing:-.025em;
+}
+.services-hero p{
+  margin:8px 0 0;
+  color:#aaa7ae;
+  font-size:9px;
+  line-height:1.5;
+  max-width:280px;
+}
+.services-count{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  z-index:2;
+  min-width:38px;height:38px;
+  display:grid;place-items:center;
+  border-radius:13px;
+  background:rgba(242,122,197,.14);
+  border:1px solid rgba(242,122,197,.25);
+  color:var(--pink2);
+  font-size:11px;
+  font-weight:800;
+}
+.service-filters{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  margin:0 1px 15px;
+}
+.service-filters::-webkit-scrollbar{display:none}
+.service-filter{
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  background:var(--white);
+  color:var(--gray);
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:8px;
+  font-weight:700;
+}
+.service-filter.active{
+  background:var(--pink);
+  color:#fff;
+  border-color:var(--pink);
+  box-shadow:0 8px 18px rgba(242,122,197,.20);
+}
+.services-modern-list{
+  display:grid;
+  gap:11px;
+}
+.service-modern-card{
+  display:grid;
+  grid-template-columns:104px minmax(0,1fr) 34px;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  border-radius:22px;
+  background:var(--white);
+  border:1px solid var(--border);
+  box-shadow:0 12px 28px rgba(25,18,25,.055);
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.service-modern-card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(242,122,197,.35);
+  box-shadow:0 18px 34px rgba(25,18,25,.10);
+}
+.service-modern-image{
+  width:104px;height:104px;
+  border-radius:17px;
+  overflow:hidden;
+  position:relative;
+  background:#29282c;
+}
+.service-modern-image img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+.service-modern-image:after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.18));
+}
+.service-modern-icon{
+  position:absolute;
+  z-index:2;
+  left:8px;bottom:8px;
+  width:27px;height:27px;
+  display:grid;place-items:center;
+  border-radius:9px;
+  color:#fff;
+  background:rgba(20,18,22,.70);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(8px);
+  font-size:12px;
+}
+.service-modern-body{min-width:0}
+.service-modern-top{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:5px;
+}
+.service-modern-body h3{
+  margin:0;
+  font-size:13px;
+  line-height:1.2;
+  letter-spacing:-.015em;
+}
+.service-modern-tag{
+  font-size:6px;
+  font-weight:800;
+  color:var(--pink);
+  background:var(--soft);
+  border-radius:999px;
+  padding:4px 6px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+.service-modern-body p{
+  margin:0;
+  color:var(--gray);
+  font-size:8px;
+  line-height:1.45;
+}
+.service-modern-price{
+  margin-top:9px;
+  color:var(--pink);
+  font-size:9px;
+  font-weight:800;
+}
+.service-modern-arrow{
+  width:34px;height:34px;
+  border:1px solid var(--border);
+  background:var(--chip);
+  color:var(--text);
+  border-radius:12px;
+  display:grid;place-items:center;
+  font-size:18px;
+  transition:.2s;
+}
+.service-modern-card:hover .service-modern-arrow{
+  background:var(--pink);
+  color:#fff;
+  border-color:var(--pink);
+  transform:translateX(1px);
+}
+
+/* Desktop */
+@media(min-width:601px){
+  .services-modern{
+    width:min(1180px,calc(100% - 80px));
+    margin:0 auto;
+    padding:42px 0 80px;
+  }
+  .services-hero{
+    padding:30px 30px 28px;
+    border-radius:30px;
+    margin-bottom:20px;
+  }
+  .services-hero h1{font-size:38px}
+  .services-hero p{font-size:12px;max-width:460px}
+  .services-eyebrow{font-size:9px}
+  .services-count{right:28px;bottom:28px;width:48px;height:48px}
+  .service-filters{margin-bottom:20px}
+  .service-filter{font-size:10px;padding:9px 15px}
+  .services-modern-list{
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+  }
+  .service-modern-card{
+    grid-template-columns:140px minmax(0,1fr) 40px;
+    padding:12px;
+    border-radius:24px;
+  }
+  .service-modern-image{width:140px;height:140px;border-radius:19px}
+  .service-modern-icon{width:31px;height:31px;border-radius:10px}
+  .service-modern-body h3{font-size:16px}
+  .service-modern-body p{font-size:10px}
+  .service-modern-price{font-size:11px}
+  .service-modern-arrow{width:40px;height:40px;border-radius:14px}
+}
+
 </style>
 </head>
 
@@ -1034,33 +1267,99 @@ button.notification.theme-toggle{
       </section>
 
       <!-- SERVICES -->
-      <section id="servicesScreen" style="display:none">
-        <div class="page">
-          <div class="page-head">
-            <button class="back" onclick="showHome()">←</button>
-            <h2>Serviços</h2>
-          </div>
+<section id="servicesScreen" style="display:none">
+  <div class="services-modern">
 
-          <div class="service-list">
-            <article class="service-full">
-              <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=500&q=80" alt="">
-              <div><h3>Corte & Styling</h3><p>Corte, escova e finalização personalizados.</p><span class="price">A partir de R$ 90</span></div>
-            </article>
-            <article class="service-full">
-              <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500&q=80" alt="">
-              <div><h3>Coloração</h3><p>Cor, luzes e transformação dos fios.</p><span class="price">A partir de R$ 180</span></div>
-            </article>
-            <article class="service-full">
-              <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=500&q=80" alt="">
-              <div><h3>Unhas</h3><p>Manicure, pedicure e nail art.</p><span class="price">A partir de R$ 55</span></div>
-            </article>
-            <article class="service-full">
-              <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=500&q=80" alt="">
-              <div><h3>Estética</h3><p>Cuidados faciais e momentos de relaxamento.</p><span class="price">A partir de R$ 120</span></div>
-            </article>
-          </div>
+    <div class="page-head" style="margin-bottom:15px">
+      <button class="back" onclick="showHome()">←</button>
+      <div>
+        <h2>Serviços</h2>
+      </div>
+    </div>
+
+    <div class="services-hero">
+      <div class="services-hero-content">
+        <div class="services-eyebrow">BELEZA NO TEMPO</div>
+        <h1>Seu momento,<br>do seu jeito.</h1>
+        <p>Descubra experiências pensadas para valorizar sua beleza e transformar seu tempo em cuidado.</p>
+      </div>
+      <div class="services-count">04</div>
+    </div>
+
+    <div class="service-filters">
+      <button class="service-filter active">Todos</button>
+      <button class="service-filter">Cabelo</button>
+      <button class="service-filter">Unhas</button>
+      <button class="service-filter">Estética</button>
+    </div>
+
+    <div class="services-modern-list">
+
+      <article class="service-modern-card" onclick="showBooking()">
+        <div class="service-modern-image">
+          <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=700&q=85" alt="Corte e styling">
+          <span class="service-modern-icon">✂</span>
         </div>
-      </section>
+        <div class="service-modern-body">
+          <div class="service-modern-top">
+            <h3>Corte & Styling</h3>
+            <span class="service-modern-tag">Popular</span>
+          </div>
+          <p>Corte, escova e finalização personalizados para o seu estilo.</p>
+          <div class="service-modern-price">A partir de R$ 90</div>
+        </div>
+        <button class="service-modern-arrow" aria-label="Agendar Corte e Styling">›</button>
+      </article>
+
+      <article class="service-modern-card" onclick="showBooking()">
+        <div class="service-modern-image">
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=85" alt="Coloração">
+          <span class="service-modern-icon">◉</span>
+        </div>
+        <div class="service-modern-body">
+          <div class="service-modern-top">
+            <h3>Coloração</h3>
+          </div>
+          <p>Cor, luzes e transformação dos fios com acabamento sofisticado.</p>
+          <div class="service-modern-price">A partir de R$ 180</div>
+        </div>
+        <button class="service-modern-arrow" aria-label="Agendar Coloração">›</button>
+      </article>
+
+      <article class="service-modern-card" onclick="showBooking()">
+        <div class="service-modern-image">
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=700&q=85" alt="Unhas">
+          <span class="service-modern-icon">♧</span>
+        </div>
+        <div class="service-modern-body">
+          <div class="service-modern-top">
+            <h3>Unhas</h3>
+            <span class="service-modern-tag">Favorito</span>
+          </div>
+          <p>Manicure, pedicure e nail art para completar o seu visual.</p>
+          <div class="service-modern-price">A partir de R$ 55</div>
+        </div>
+        <button class="service-modern-arrow" aria-label="Agendar Unhas">›</button>
+      </article>
+
+      <article class="service-modern-card" onclick="showBooking()">
+        <div class="service-modern-image">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=85" alt="Estética">
+          <span class="service-modern-icon">✧</span>
+        </div>
+        <div class="service-modern-body">
+          <div class="service-modern-top">
+            <h3>Estética</h3>
+          </div>
+          <p>Cuidados faciais e momentos de relaxamento para você.</p>
+          <div class="service-modern-price">A partir de R$ 120</div>
+        </div>
+        <button class="service-modern-arrow" aria-label="Agendar Estética">›</button>
+      </article>
+
+    </div>
+  </div>
+</section>
 
       <!-- BOOKING -->
       <section id="bookingScreen" style="display:none">
@@ -1280,5 +1579,15 @@ function toggleTheme(){
 }
 applyTheme("light");
 </script>
+
+<script>
+document.querySelectorAll(".service-filter").forEach(filter=>{
+  filter.addEventListener("click", ()=>{
+    document.querySelectorAll(".service-filter").forEach(x=>x.classList.remove("active"));
+    filter.classList.add("active");
+  });
+});
+</script>
+
 </body>
 </html>
