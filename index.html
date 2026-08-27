@@ -1000,6 +1000,10 @@ button.notification.theme-toggle{
   border-color:var(--pink);
   box-shadow:0 8px 18px rgba(242,122,197,.20);
 }
+.service-filter:focus-visible{
+  outline:2px solid var(--pink);
+  outline-offset:2px;
+}
 .services-modern-list{
   display:grid;
   gap:11px;
@@ -1014,12 +1018,44 @@ button.notification.theme-toggle{
   background:var(--white);
   border:1px solid var(--border);
   box-shadow:0 12px 28px rgba(25,18,25,.055);
-  transition:transform .2s,border-color .2s,box-shadow .2s;
+  cursor:pointer;
+  transition:transform .2s,border-color .2s,box-shadow .2s,opacity .18s;
+  animation:serviceCardIn .32s ease both;
 }
 .service-modern-card:hover{
   transform:translateY(-2px);
   border-color:rgba(242,122,197,.35);
   box-shadow:0 18px 34px rgba(25,18,25,.10);
+}
+.service-modern-card:focus-visible{
+  outline:none;
+  border-color:var(--pink);
+  box-shadow:0 0 0 2px var(--pink),0 18px 34px rgba(25,18,25,.10);
+}
+.service-modern-card.is-hidden{
+  display:none;
+}
+@keyframes serviceCardIn{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .service-modern-card{animation:none}
+}
+.services-empty{
+  display:none;
+  text-align:center;
+  padding:36px 16px;
+  color:var(--gray);
+  font-size:10px;
+  border:1px dashed var(--border);
+  border-radius:20px;
+}
+.services-empty strong{
+  display:block;
+  color:var(--text);
+  font-size:12px;
+  margin-bottom:4px;
 }
 .service-modern-image{
   width:104px;height:104px;
@@ -1283,22 +1319,22 @@ button.notification.theme-toggle{
         <h1>Seu momento,<br>do seu jeito.</h1>
         <p>Descubra experiências pensadas para valorizar sua beleza e transformar seu tempo em cuidado.</p>
       </div>
-      <div class="services-count">04</div>
+      <div class="services-count" id="servicesCount" aria-live="polite" aria-label="4 serviços disponíveis">04</div>
     </div>
 
-    <div class="service-filters">
-      <button class="service-filter active">Todos</button>
-      <button class="service-filter">Cabelo</button>
-      <button class="service-filter">Unhas</button>
-      <button class="service-filter">Estética</button>
+    <div class="service-filters" role="group" aria-label="Filtrar serviços por categoria">
+      <button type="button" class="service-filter active" data-filter="all" aria-pressed="true">Todos</button>
+      <button type="button" class="service-filter" data-filter="cabelo" aria-pressed="false">Cabelo</button>
+      <button type="button" class="service-filter" data-filter="unhas" aria-pressed="false">Unhas</button>
+      <button type="button" class="service-filter" data-filter="estetica" aria-pressed="false">Estética</button>
     </div>
 
-    <div class="services-modern-list">
+    <div class="services-modern-list" id="servicesList">
 
-      <article class="service-modern-card" onclick="showBooking()">
+      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Corte & Styling, a partir de R$ 90 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
-          <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=700&q=85" alt="Corte e styling">
-          <span class="service-modern-icon">✂</span>
+          <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=700&q=85" alt="Corte e styling" loading="lazy" decoding="async">
+          <span class="service-modern-icon" aria-hidden="true">✂</span>
         </div>
         <div class="service-modern-body">
           <div class="service-modern-top">
@@ -1308,13 +1344,13 @@ button.notification.theme-toggle{
           <p>Corte, escova e finalização personalizados para o seu estilo.</p>
           <div class="service-modern-price">A partir de R$ 90</div>
         </div>
-        <button class="service-modern-arrow" aria-label="Agendar Corte e Styling">›</button>
+        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
-      <article class="service-modern-card" onclick="showBooking()">
+      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Coloração, a partir de R$ 180 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
-          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=85" alt="Coloração">
-          <span class="service-modern-icon">◉</span>
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=85" alt="Coloração" loading="lazy" decoding="async">
+          <span class="service-modern-icon" aria-hidden="true">◉</span>
         </div>
         <div class="service-modern-body">
           <div class="service-modern-top">
@@ -1323,13 +1359,13 @@ button.notification.theme-toggle{
           <p>Cor, luzes e transformação dos fios com acabamento sofisticado.</p>
           <div class="service-modern-price">A partir de R$ 180</div>
         </div>
-        <button class="service-modern-arrow" aria-label="Agendar Coloração">›</button>
+        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
-      <article class="service-modern-card" onclick="showBooking()">
+      <article class="service-modern-card" data-category="unhas" role="button" tabindex="0" aria-label="Unhas, a partir de R$ 55 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
-          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=700&q=85" alt="Unhas">
-          <span class="service-modern-icon">♧</span>
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=700&q=85" alt="Unhas" loading="lazy" decoding="async">
+          <span class="service-modern-icon" aria-hidden="true">♧</span>
         </div>
         <div class="service-modern-body">
           <div class="service-modern-top">
@@ -1339,13 +1375,13 @@ button.notification.theme-toggle{
           <p>Manicure, pedicure e nail art para completar o seu visual.</p>
           <div class="service-modern-price">A partir de R$ 55</div>
         </div>
-        <button class="service-modern-arrow" aria-label="Agendar Unhas">›</button>
+        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
-      <article class="service-modern-card" onclick="showBooking()">
+      <article class="service-modern-card" data-category="estetica" role="button" tabindex="0" aria-label="Estética, a partir de R$ 120 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
-          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=85" alt="Estética">
-          <span class="service-modern-icon">✧</span>
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=85" alt="Estética" loading="lazy" decoding="async">
+          <span class="service-modern-icon" aria-hidden="true">✧</span>
         </div>
         <div class="service-modern-body">
           <div class="service-modern-top">
@@ -1354,9 +1390,14 @@ button.notification.theme-toggle{
           <p>Cuidados faciais e momentos de relaxamento para você.</p>
           <div class="service-modern-price">A partir de R$ 120</div>
         </div>
-        <button class="service-modern-arrow" aria-label="Agendar Estética">›</button>
+        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
+    </div>
+
+    <div class="services-empty" id="servicesEmpty">
+      <strong>Nenhum serviço encontrado</strong>
+      Tente escolher outra categoria no filtro acima.
     </div>
   </div>
 </section>
@@ -1581,12 +1622,50 @@ applyTheme("light");
 </script>
 
 <script>
-document.querySelectorAll(".service-filter").forEach(filter=>{
-  filter.addEventListener("click", ()=>{
-    document.querySelectorAll(".service-filter").forEach(x=>x.classList.remove("active"));
-    filter.classList.add("active");
+/* Serviços: filtro por categoria + contador dinâmico + navegação por teclado */
+(function(){
+  const filters=document.querySelectorAll(".service-filter");
+  const cards=document.querySelectorAll(".service-modern-card");
+  const countEl=document.getElementById("servicesCount");
+  const emptyEl=document.getElementById("servicesEmpty");
+
+  function applyFilter(value){
+    let visible=0;
+    cards.forEach(card=>{
+      const match=value==="all" || card.dataset.category===value;
+      card.classList.toggle("is-hidden", !match);
+      if(match) visible++;
+    });
+    if(countEl){
+      countEl.textContent=String(visible).padStart(2,"0");
+      countEl.setAttribute("aria-label", visible+(visible===1?" serviço disponível":" serviços disponíveis"));
+    }
+    if(emptyEl) emptyEl.style.display=visible===0 ? "block" : "none";
+  }
+
+  filters.forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      filters.forEach(b=>{
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed","false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed","true");
+      applyFilter(btn.dataset.filter);
+    });
   });
-});
+
+  cards.forEach(card=>{
+    card.addEventListener("keydown", e=>{
+      if(e.key==="Enter" || e.key===" "){
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  applyFilter("all");
+})();
 </script>
 
 </body>
