@@ -508,6 +508,115 @@ a{text-decoration:none;color:inherit}
 }
 .book-btn-dark:hover{transform:translateY(-1px);box-shadow:0 20px 38px rgba(242,122,197,.4)}
 
+/* Wizard de agendamento: profissional → serviço → horário */
+.booking-steps{
+  display:flex;align-items:flex-start;gap:0;
+  margin:18px 0 22px;position:relative;z-index:2;
+}
+.booking-step-node{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  flex:0 0 auto;width:60px;
+}
+.booking-step-circle{
+  width:25px;height:25px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+  color:#9d98a3;font-size:10px;font-weight:700;
+  display:grid;place-items:center;transition:.2s;
+}
+.booking-step-label{
+  font-size:7.5px;font-weight:700;color:#9d98a3;
+  letter-spacing:.03em;text-transform:uppercase;text-align:center;
+}
+.booking-step-node.active .booking-step-circle{background:var(--pink);border-color:var(--pink);color:#fff;box-shadow:0 0 0 4px rgba(242,122,197,.18)}
+.booking-step-node.active .booking-step-label{color:#fff}
+.booking-step-node.done .booking-step-circle{background:rgba(242,122,197,.22);border-color:var(--pink);color:var(--pink)}
+.booking-step-node.done .booking-step-label{color:#d8d5da}
+.booking-step-line{
+  flex:1 1 auto;height:1px;background:rgba(255,255,255,.14);
+  margin-top:13px;transition:background .2s;
+}
+.booking-step-line.done{background:var(--pink)}
+
+.booking-step-panel{position:relative;z-index:2}
+.booking-step-head{margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.booking-step-mini-back{
+  width:26px;height:26px;border-radius:9px;flex-shrink:0;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+  color:#fff;font-size:12px;display:grid;place-items:center;
+}
+.booking-step-head-text{min-width:0}
+.booking-step-eyebrow{display:block;font-size:8px;font-weight:700;color:var(--pink);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.booking-step-head-text h4{margin:0;font-size:14px;font-weight:600;letter-spacing:-.01em}
+
+/* Passo 1 — profissional */
+.pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.pro-card{
+  display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  padding:12px 11px;border-radius:16px;text-align:left;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);
+  transition:.18s;
+}
+.pro-card:hover{background:rgba(255,255,255,.08);transform:translateY(-1px)}
+.pro-card.selected{border-color:var(--pink);background:rgba(242,122,197,.14)}
+.pro-avatar{
+  width:36px;height:36px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;
+  display:grid;place-items:center;font-size:12px;font-weight:700;
+  font-family:"Playfair Display",serif;
+}
+.pro-avatar-any{background:rgba(255,255,255,.1);color:#fff;font-size:15px}
+.pro-name{font-size:11px;font-weight:700;color:#fff}
+.pro-spec{font-size:8.5px;color:#a29dab;line-height:1.35}
+.pro-rating{font-size:8.5px;color:var(--pink2);font-weight:700;margin-top:-3px}
+
+/* Passo 2 — serviço */
+.service-pick-list{display:flex;flex-direction:column;gap:8px}
+.service-pick-item{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:13px 14px;border-radius:15px;text-align:left;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);
+  transition:.18s;
+}
+.service-pick-item:hover{background:rgba(255,255,255,.08)}
+.service-pick-item.selected{border-color:var(--pink);background:rgba(242,122,197,.14)}
+.service-pick-item.is-hidden{display:none}
+.service-pick-radio{
+  width:16px;height:16px;border-radius:50%;flex-shrink:0;
+  border:1px solid rgba(255,255,255,.28);position:relative;
+}
+.service-pick-item.selected .service-pick-radio{border-color:var(--pink)}
+.service-pick-item.selected .service-pick-radio:after{
+  content:"";position:absolute;inset:3px;border-radius:50%;background:var(--pink);
+}
+.service-pick-info{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.service-pick-info strong{font-size:11px;font-weight:700;color:#fff}
+.service-pick-info span{font-size:8.5px;color:#a29dab}
+.service-pick-price{font-size:11px;font-weight:700;color:var(--pink2);white-space:nowrap}
+.service-pick-empty{font-size:9.5px;color:#a29dab;padding:8px 2px}
+
+/* Passo 3 — horário: resumo do que foi escolhido */
+.summary-chips{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
+.summary-chip{
+  display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+  padding:10px 12px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);
+}
+.summary-chip-avatar{
+  width:28px;height:28px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;
+  display:grid;place-items:center;font-size:10px;font-weight:700;
+  font-family:"Playfair Display",serif;
+}
+.summary-chip-icon{
+  width:28px;height:28px;border-radius:10px;flex-shrink:0;
+  background:rgba(255,255,255,.08);color:var(--pink2);
+  display:grid;place-items:center;font-size:12px;
+}
+.summary-chip-text{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
+.summary-chip-text strong{font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.summary-chip-text em{font-size:8px;font-style:normal;color:var(--pink2);font-weight:600}
+
 /* Sidebar (navegação do desktop) */
 #sidebar{
   display:none;
@@ -562,7 +671,9 @@ a{text-decoration:none;color:inherit}
   display:grid;place-items:center;font-size:13px;transition:.18s;
 }
 .theme-toggle:hover{border-color:var(--pink)}
+.theme-toggle svg{width:16px;height:16px;display:block;flex-shrink:0}
 button.notification.theme-toggle{
+  width:34px;height:34px;border-radius:50%;
   border:1px solid rgba(255,255,255,.12);background:#2b2a2d;color:#fff;
 }
 
@@ -870,6 +981,81 @@ button.notification.theme-toggle{
   .book-btn-dark{
     padding:17px;
     font-size:12px;
+  }
+
+  .booking-steps{
+    max-width:420px;
+    margin:26px auto 30px;
+  }
+
+  .booking-step-node{
+    width:90px;
+  }
+
+  .booking-step-circle{
+    width:32px;
+    height:32px;
+    font-size:12px;
+  }
+
+  .booking-step-label{
+    font-size:9px;
+  }
+
+  .booking-step-head-text h4{
+    font-size:17px;
+  }
+
+  .pro-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+  }
+
+  .pro-card{
+    padding:18px 14px;
+    border-radius:20px;
+  }
+
+  .pro-avatar{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    font-size:15px;
+  }
+
+  .pro-name{
+    font-size:13px;
+  }
+
+  .pro-spec{
+    font-size:10px;
+  }
+
+  .service-pick-item{
+    padding:17px 18px;
+    border-radius:18px;
+  }
+
+  .service-pick-info strong{
+    font-size:13px;
+  }
+
+  .service-pick-info span{
+    font-size:10px;
+  }
+
+  .service-pick-price{
+    font-size:13px;
+  }
+
+  .summary-chips{
+    flex-direction:row;
+    gap:12px;
+  }
+
+  .summary-chip{
+    padding:13px 15px;
+    border-radius:16px;
   }
 
   /* No computador usamos uma navegação superior/desktop.
@@ -1636,7 +1822,7 @@ button.notification.theme-toggle{
  <div class="auth-card">
 
   <div class="auth-panel-dark">
-    <button class="notification theme-toggle" style="position:absolute;top:18px;right:18px;z-index:3" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <button class="notification theme-toggle" style="position:absolute;top:18px;right:18px;z-index:3" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     <div class="auth-panel-content">
       <div class="auth-brand-mark">B</div>
       <div class="auth-eyebrow">BELEZA NO TEMPO</div>
@@ -1776,7 +1962,7 @@ button.notification.theme-toggle{
 
   <div class="salon-hero">
     <button class="notification" style="position:absolute;top:18px;right:60px;z-index:3" onclick="enterApp()" aria-label="Fechar busca" title="Fechar">✕</button>
-    <button class="notification theme-toggle" style="position:absolute;top:18px;right:18px;z-index:3" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <button class="notification theme-toggle" style="position:absolute;top:18px;right:18px;z-index:3" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
     <div class="salon-hero-content">
       <div class="auth-brand-mark">B</div>
       <div class="auth-eyebrow">BELEZA NO TEMPO</div>
@@ -1966,7 +2152,7 @@ button.notification.theme-toggle{
       <!-- HOME -->
       <section id="homeScreen">
         <div class="topbar">
-          <button class="notification theme-toggle" style="position:absolute;top:17px;right:18px;z-index:2" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+          <button class="notification theme-toggle" style="position:absolute;top:17px;right:18px;z-index:2" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
           <div class="greeting">
             <div class="date">SEG, 31 AGO</div>
             <h1>Olá, Isabella</h1>
@@ -2087,7 +2273,7 @@ button.notification.theme-toggle{
 
     <div class="services-modern-list" id="servicesList">
 
-      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Corte & Styling, R$ 90,00 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Corte & Styling, R$ 90,00 — toque para agendar" onclick="showBooking('corte')">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=700&q=85" alt="Corte e styling" loading="lazy" decoding="async">
           <span class="service-modern-badge">Cabelo</span>
@@ -2098,12 +2284,12 @@ button.notification.theme-toggle{
           <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 45 min</div>
           <div class="service-modern-footer">
             <div class="service-modern-price">R$ 90,00</div>
-            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking('corte')">Agendar</button>
           </div>
         </div>
       </article>
 
-      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Coloração, R$ 180,00 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Coloração, R$ 180,00 — toque para agendar" onclick="showBooking('coloracao')">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=85" alt="Coloração" loading="lazy" decoding="async">
           <span class="service-modern-badge is-gold">Coloração</span>
@@ -2114,12 +2300,12 @@ button.notification.theme-toggle{
           <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 120 min</div>
           <div class="service-modern-footer">
             <div class="service-modern-price">R$ 180,00</div>
-            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking('coloracao')">Agendar</button>
           </div>
         </div>
       </article>
 
-      <article class="service-modern-card" data-category="unhas" role="button" tabindex="0" aria-label="Unhas, R$ 55,00 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="unhas" role="button" tabindex="0" aria-label="Unhas, R$ 55,00 — toque para agendar" onclick="showBooking('unhas')">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=700&q=85" alt="Unhas" loading="lazy" decoding="async">
           <span class="service-modern-badge">Unhas</span>
@@ -2130,12 +2316,12 @@ button.notification.theme-toggle{
           <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 40 min</div>
           <div class="service-modern-footer">
             <div class="service-modern-price">R$ 55,00</div>
-            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking('unhas')">Agendar</button>
           </div>
         </div>
       </article>
 
-      <article class="service-modern-card" data-category="estetica" role="button" tabindex="0" aria-label="Estética, R$ 120,00 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="estetica" role="button" tabindex="0" aria-label="Estética, R$ 120,00 — toque para agendar" onclick="showBooking('estetica')">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=85" alt="Estética" loading="lazy" decoding="async">
           <span class="service-modern-badge">Estética</span>
@@ -2146,7 +2332,7 @@ button.notification.theme-toggle{
           <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 60 min</div>
           <div class="service-modern-footer">
             <div class="service-modern-price">R$ 120,00</div>
-            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking('estetica')">Agendar</button>
           </div>
         </div>
       </article>
@@ -2192,34 +2378,135 @@ button.notification.theme-toggle{
               </div>
             </div>
 
-            <label>NOME</label>
-            <input id="name" placeholder="Como podemos te chamar?">
-
-            <label>SERVIÇO</label>
-            <select id="service">
-              <option>Corte & Styling</option>
-              <option>Coloração</option>
-              <option>Unhas</option>
-              <option>Estética</option>
-            </select>
-
-            <label>DATA</label>
-            <div class="date-strip" id="dateStrip"></div>
-
-            <label>HORÁRIO</label>
-            <div class="times-dark">
-              <button class="time-dark" onclick="selectTime(this)">09:00</button>
-              <button class="time-dark" onclick="selectTime(this)">10:00</button>
-              <button class="time-dark" onclick="selectTime(this)">11:00</button>
-              <button class="time-dark" onclick="selectTime(this)">13:00</button>
-              <button class="time-dark" onclick="selectTime(this)">14:00</button>
-              <button class="time-dark" onclick="selectTime(this)">15:00</button>
-              <button class="time-dark" onclick="selectTime(this)">16:00</button>
-              <button class="time-dark" onclick="selectTime(this)">17:00</button>
-              <button class="time-dark" onclick="selectTime(this)">18:00</button>
+            <!-- Indicador de progresso do agendamento -->
+            <div class="booking-steps" id="bookingSteps">
+              <div class="booking-step-node active" data-step="1">
+                <span class="booking-step-circle">1</span>
+                <span class="booking-step-label">Profissional</span>
+              </div>
+              <span class="booking-step-line"></span>
+              <div class="booking-step-node" data-step="2">
+                <span class="booking-step-circle">2</span>
+                <span class="booking-step-label">Serviço</span>
+              </div>
+              <span class="booking-step-line"></span>
+              <div class="booking-step-node" data-step="3">
+                <span class="booking-step-circle">3</span>
+                <span class="booking-step-label">Horário</span>
+              </div>
             </div>
 
-            <button class="book-btn-dark" onclick="confirmBooking()">Solicitar agendamento →</button>
+            <!-- PASSO 1: Profissional -->
+            <div class="booking-step-panel" id="stepPro" data-step="1">
+              <div class="booking-step-head">
+                <div class="booking-step-head-text">
+                  <span class="booking-step-eyebrow">Passo 1 de 3</span>
+                  <h4>Escolha o profissional</h4>
+                </div>
+              </div>
+              <div class="pro-grid" id="proGrid">
+                <button type="button" class="pro-card" data-name="Ana Paula" data-spec="Cabelo & Coloração" data-cat="cabelo" data-initials="AP" data-rating="4.9" onclick="selectPro(this)">
+                  <span class="pro-avatar">AP</span>
+                  <span class="pro-name">Ana Paula</span>
+                  <span class="pro-spec">Cabelo & Coloração</span>
+                  <span class="pro-rating">★ 4.9</span>
+                </button>
+                <button type="button" class="pro-card" data-name="Bruna Costa" data-spec="Unhas & Nail Art" data-cat="unhas" data-initials="BC" data-rating="5.0" onclick="selectPro(this)">
+                  <span class="pro-avatar">BC</span>
+                  <span class="pro-name">Bruna Costa</span>
+                  <span class="pro-spec">Unhas & Nail Art</span>
+                  <span class="pro-rating">★ 5.0</span>
+                </button>
+                <button type="button" class="pro-card" data-name="Carla Dias" data-spec="Estética & Skincare" data-cat="estetica" data-initials="CD" data-rating="4.8" onclick="selectPro(this)">
+                  <span class="pro-avatar">CD</span>
+                  <span class="pro-name">Carla Dias</span>
+                  <span class="pro-spec">Estética & Skincare</span>
+                  <span class="pro-rating">★ 4.8</span>
+                </button>
+                <button type="button" class="pro-card" data-name="Sem preferência" data-spec="Qualquer profissional disponível" data-cat="all" data-initials="✦" data-rating="" onclick="selectPro(this)">
+                  <span class="pro-avatar pro-avatar-any">✦</span>
+                  <span class="pro-name">Sem preferência</span>
+                  <span class="pro-spec">Primeiro horário disponível</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- PASSO 2: Serviço -->
+            <div class="booking-step-panel" id="stepService" data-step="2" style="display:none">
+              <div class="booking-step-head">
+                <button type="button" class="booking-step-mini-back" onclick="goToStep(1)" aria-label="Voltar para profissional">←</button>
+                <div class="booking-step-head-text">
+                  <span class="booking-step-eyebrow">Passo 2 de 3</span>
+                  <h4>Escolha o serviço</h4>
+                </div>
+              </div>
+              <div class="service-pick-list" id="servicePickList">
+                <button type="button" class="service-pick-item" data-id="corte" data-cat="cabelo" data-name="Corte & Styling" data-price="R$ 90,00" data-duration="45 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Corte & Styling</strong><span>45 min</span></span>
+                  <span class="service-pick-price">R$ 90,00</span>
+                </button>
+                <button type="button" class="service-pick-item" data-id="coloracao" data-cat="cabelo" data-name="Coloração" data-price="R$ 180,00" data-duration="120 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Coloração</strong><span>120 min</span></span>
+                  <span class="service-pick-price">R$ 180,00</span>
+                </button>
+                <button type="button" class="service-pick-item" data-id="unhas" data-cat="unhas" data-name="Unhas" data-price="R$ 55,00" data-duration="40 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Unhas</strong><span>40 min</span></span>
+                  <span class="service-pick-price">R$ 55,00</span>
+                </button>
+                <button type="button" class="service-pick-item" data-id="estetica" data-cat="estetica" data-name="Estética" data-price="R$ 120,00" data-duration="60 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Estética</strong><span>60 min</span></span>
+                  <span class="service-pick-price">R$ 120,00</span>
+                </button>
+                <p class="service-pick-empty" id="servicePickEmpty" style="display:none">Nenhum serviço disponível para este profissional.</p>
+              </div>
+            </div>
+
+            <!-- PASSO 3: Horário -->
+            <div class="booking-step-panel" id="stepTime" data-step="3" style="display:none">
+              <div class="booking-step-head">
+                <button type="button" class="booking-step-mini-back" onclick="goToStep(2)" aria-label="Voltar para serviço">←</button>
+                <div class="booking-step-head-text">
+                  <span class="booking-step-eyebrow">Passo 3 de 3</span>
+                  <h4>Escolha o horário</h4>
+                </div>
+              </div>
+
+              <div class="summary-chips" id="summaryChips">
+                <button type="button" class="summary-chip" onclick="goToStep(1)">
+                  <span class="summary-chip-avatar" id="summaryProAvatar">AP</span>
+                  <span class="summary-chip-text"><strong id="summaryProName">—</strong><em>Trocar profissional</em></span>
+                </button>
+                <button type="button" class="summary-chip" onclick="goToStep(2)">
+                  <span class="summary-chip-icon">✂</span>
+                  <span class="summary-chip-text"><strong id="summaryServiceName">—</strong><em id="summaryServicePrice">Trocar serviço</em></span>
+                </button>
+              </div>
+
+              <label>NOME</label>
+              <input id="name" placeholder="Como podemos te chamar?">
+
+              <label>DATA</label>
+              <div class="date-strip" id="dateStrip"></div>
+
+              <label>HORÁRIO</label>
+              <div class="times-dark">
+                <button class="time-dark" onclick="selectTime(this)">09:00</button>
+                <button class="time-dark" onclick="selectTime(this)">10:00</button>
+                <button class="time-dark" onclick="selectTime(this)">11:00</button>
+                <button class="time-dark" onclick="selectTime(this)">13:00</button>
+                <button class="time-dark" onclick="selectTime(this)">14:00</button>
+                <button class="time-dark" onclick="selectTime(this)">15:00</button>
+                <button class="time-dark" onclick="selectTime(this)">16:00</button>
+                <button class="time-dark" onclick="selectTime(this)">17:00</button>
+                <button class="time-dark" onclick="selectTime(this)">18:00</button>
+              </div>
+
+              <button class="book-btn-dark" onclick="confirmBooking()">Solicitar agendamento →</button>
+            </div>
           </div>
         </div>
       </section>
@@ -2315,11 +2602,16 @@ function show(which){
 }
 function showHome(){show("home")}
 function showServices(){show("services")}
-function showBooking(){show("booking")}
+function showBooking(presetServiceId){
+  show("booking");
+  resetBookingWizard(presetServiceId);
+}
 function showProfile(){show("profile")}
 
 document.querySelectorAll(".side-item[data-view]").forEach(el=>{
-  el.addEventListener("click", ()=>show(el.dataset.view));
+  el.addEventListener("click", ()=>{
+    if(el.dataset.view==="booking"){ showBooking(); } else { show(el.dataset.view); }
+  });
 });
 
 function selectTime(btn){
@@ -2346,14 +2638,126 @@ function buildDateStrip(){
   strip.innerHTML=html;
 }
 buildDateStrip();
+
+/* Agendamento em 3 passos: profissional → serviço → horário */
+let bookingState={pro:null,service:null,presetServiceId:null,step:1};
+
+function updateBookingStepper(n){
+  document.querySelectorAll(".booking-step-node").forEach(node=>{
+    const s=Number(node.dataset.step);
+    node.classList.toggle("active", s===n);
+    node.classList.toggle("done", s<n);
+    node.querySelector(".booking-step-circle").textContent = s<n ? "✓" : s;
+  });
+  document.querySelectorAll(".booking-step-line").forEach((line,i)=>{
+    line.classList.toggle("done", (i+1)<n);
+  });
+}
+
+function goToStep(n){
+  bookingState.step=n;
+  document.querySelectorAll(".booking-step-panel").forEach(p=>{
+    p.style.display = Number(p.dataset.step)===n ? "block" : "none";
+  });
+  if(n===2) renderServiceStep();
+  if(n===3) renderSummary();
+  updateBookingStepper(n);
+  const cardEl=document.querySelector(".booking-card");
+  if(cardEl) cardEl.scrollIntoView({block:"start"});
+}
+
+function selectPro(el){
+  document.querySelectorAll(".pro-card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+  bookingState.pro={
+    name:el.dataset.name,
+    spec:el.dataset.spec,
+    cat:el.dataset.cat,
+    initials:el.dataset.initials
+  };
+  setTimeout(()=>goToStep(2), 260);
+}
+
+function renderServiceStep(){
+  const cat=bookingState.pro ? bookingState.pro.cat : "all";
+  const items=document.querySelectorAll("#servicePickList .service-pick-item");
+  let visible=0;
+  items.forEach(item=>{
+    const match = cat==="all" || item.dataset.cat===cat;
+    item.classList.toggle("is-hidden", !match);
+    if(!match) item.classList.remove("selected");
+    if(match) visible++;
+  });
+  const emptyEl=document.getElementById("servicePickEmpty");
+  if(emptyEl) emptyEl.style.display = visible===0 ? "block" : "none";
+
+  if(bookingState.presetServiceId){
+    const presetId=bookingState.presetServiceId;
+    bookingState.presetServiceId=null;
+    const target=document.querySelector('#servicePickList .service-pick-item[data-id="'+presetId+'"]');
+    if(target && !target.classList.contains("is-hidden")){
+      selectService(target, true);
+    }
+  }
+}
+
+function selectService(el, quick){
+  document.querySelectorAll(".service-pick-item").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+  bookingState.service={
+    name:el.dataset.name,
+    price:el.dataset.price,
+    duration:el.dataset.duration,
+    cat:el.dataset.cat
+  };
+  setTimeout(()=>goToStep(3), quick ? 380 : 260);
+}
+
+function renderSummary(){
+  if(bookingState.pro){
+    const avatarEl=document.getElementById("summaryProAvatar");
+    avatarEl.textContent=bookingState.pro.initials;
+    avatarEl.classList.toggle("pro-avatar-any", bookingState.pro.cat==="all");
+    document.getElementById("summaryProName").textContent=bookingState.pro.name;
+  }
+  if(bookingState.service){
+    document.getElementById("summaryServiceName").textContent=bookingState.service.name;
+    document.getElementById("summaryServicePrice").textContent=bookingState.service.price+" · "+bookingState.service.duration;
+  }
+}
+
+function resetBookingWizard(presetServiceId){
+  bookingState={pro:null,service:null,presetServiceId:presetServiceId||null,step:1};
+  document.querySelectorAll(".pro-card").forEach(c=>c.classList.remove("selected"));
+  document.querySelectorAll(".service-pick-item").forEach(c=>{
+    c.classList.remove("selected");
+    c.classList.remove("is-hidden");
+  });
+  document.querySelectorAll(".time-dark").forEach(x=>x.classList.remove("selected"));
+  const nameInput=document.getElementById("name");
+  if(nameInput) nameInput.value="";
+  buildDateStrip();
+  goToStep(1);
+}
+
 function confirmBooking(){
   const name=document.getElementById("name").value.trim() || "cliente";
+  if(!bookingState.pro){
+    alert("Escolha um profissional para continuar.");
+    goToStep(1);
+    return;
+  }
+  if(!bookingState.service){
+    alert("Escolha um serviço para continuar.");
+    goToStep(2);
+    return;
+  }
   const timeBtn=document.querySelector(".time-dark.selected");
   if(!timeBtn){
     alert("Escolha um horário para continuar.");
     return;
   }
-  alert("Perfeito, "+name+"! Seu pedido de agendamento foi registrado.");
+  alert("Perfeito, "+name+"! Seu agendamento de "+bookingState.service.name+" com "+bookingState.pro.name+" às "+timeBtn.textContent+" foi solicitado.");
 }
 function openModal(){document.getElementById("modal").classList.add("show")}
 function closeModal(){document.getElementById("modal").classList.remove("show")}
@@ -2364,10 +2768,12 @@ function sendContact(){
   alert("Obrigada, "+n+"! Em uma versão conectada ao WhatsApp, essa mensagem será enviada automaticamente.");
 }
 /* Tema claro/escuro */
+const THEME_ICON_MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+const THEME_ICON_SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2.5 12h2.5M19 12h2.5M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"/></svg>';
 function applyTheme(theme){
   document.documentElement.setAttribute("data-theme", theme);
   document.querySelectorAll(".theme-toggle").forEach(btn=>{
-    btn.textContent = theme==="dark" ? "☀" : "🌙";
+    btn.innerHTML = theme==="dark" ? THEME_ICON_SUN : THEME_ICON_MOON;
   });
   const sw=document.getElementById("themeSwitch");
   if(sw) sw.classList.toggle("on", theme==="dark");
