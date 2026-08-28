@@ -1114,6 +1114,76 @@ button.notification.theme-toggle{
   float:right;border:0;background:var(--chip);color:var(--text);
   width:31px;height:31px;border-radius:50%;font-size:18px
 }
+@keyframes modalSlideUp{from{transform:translateY(26px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal.show .modal-card{animation:modalSlideUp .3s ease}
+
+/* Modal de confirmação de agendamento */
+.booking-modal-card{
+  background:var(--black2);color:#fff;
+  border:1px solid rgba(255,255,255,.06);
+}
+.booking-modal-card .close{
+  background:rgba(255,255,255,.08);color:#fff;
+}
+.booking-modal-icon{
+  width:54px;height:54px;border-radius:50%;
+  background:rgba(242,122,197,.16);color:var(--pink);
+  border:1px solid rgba(242,122,197,.3);
+  display:grid;place-items:center;margin:2px auto 14px;
+  transition:.2s;
+}
+.booking-modal-icon svg{width:24px;height:24px}
+.booking-modal-card.is-success .booking-modal-icon{
+  background:rgba(84,196,138,.16);color:#6bd69b;border-color:rgba(84,196,138,.35);
+}
+.booking-modal-card h3{
+  font-family:"Playfair Display",serif;text-align:center;
+  font-size:19px;margin:0 0 6px;letter-spacing:-.01em;
+}
+.booking-modal-card > p{
+  text-align:center;color:#a29dab;font-size:9.5px;
+  margin:0 0 18px;line-height:1.5;padding:0 6px;
+}
+.booking-review-list{
+  display:flex;flex-direction:column;gap:11px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;padding:14px;margin-bottom:10px;
+}
+.booking-review-row{display:flex;align-items:center;gap:10px}
+.booking-review-ico{
+  width:28px;height:28px;border-radius:9px;flex-shrink:0;
+  background:rgba(255,255,255,.06);color:var(--pink2);
+  display:grid;place-items:center;
+}
+.booking-review-ico svg{width:14px;height:14px}
+.booking-review-text{display:flex;flex-direction:column;gap:1px;min-width:0}
+.booking-review-text strong{font-size:7.5px;font-weight:700;color:#8b8790;text-transform:uppercase;letter-spacing:.06em}
+.booking-review-text span{font-size:11.5px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.booking-review-total{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 14px;border-radius:14px;
+  background:rgba(242,122,197,.1);border:1px solid rgba(242,122,197,.22);
+  margin-bottom:18px;
+}
+.booking-review-total span{font-size:9px;color:#d8d5da;font-weight:600}
+.booking-review-total strong{font-size:14px;color:var(--pink2)}
+.booking-modal-actions{display:flex;gap:10px}
+.btn-ghost,.btn-solid{
+  flex:1;padding:14px;border-radius:14px;
+  font-weight:700;font-size:10.5px;letter-spacing:.01em;
+  transition:transform .18s,box-shadow .18s,background .18s;
+}
+.btn-ghost{
+  border:1px solid rgba(255,255,255,.14);background:transparent;color:#d8d5da;
+}
+.btn-ghost:hover{border-color:rgba(255,255,255,.32);background:rgba(255,255,255,.05)}
+.btn-solid{
+  border:0;background:var(--pink);color:#fff;
+  box-shadow:0 14px 28px rgba(242,122,197,.32);
+}
+.btn-solid:hover{transform:translateY(-1px);box-shadow:0 18px 34px rgba(242,122,197,.4)}
+.btn-full{flex:1 1 100%}
 
 /* ===== REDESIGN: SERVIÇOS ===== */
 .services-modern{
@@ -2585,6 +2655,46 @@ button.notification.theme-toggle{
   </div>
 </div>
 
+<!-- Modal de confirmação de agendamento -->
+<div class="modal" id="bookingModal" onclick="outsideBookingModal(event)">
+  <div class="modal-card booking-modal-card" id="bookingModalCard">
+    <button class="close" onclick="closeBookingModal()">×</button>
+
+    <div class="booking-modal-icon" id="bookingModalIcon"></div>
+    <h3 id="bookingModalTitle">Confirmar agendamento</h3>
+    <p id="bookingModalSubtitle">Revise os detalhes antes de confirmar seu horário.</p>
+
+    <div class="booking-review-list">
+      <div class="booking-review-row">
+        <span class="booking-review-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.5 20c1.3-4.2 4.1-6.3 7.5-6.3s6.2 2.1 7.5 6.3"/></svg></span>
+        <span class="booking-review-text"><strong>Profissional</strong><span id="reviewPro">—</span></span>
+      </div>
+      <div class="booking-review-row">
+        <span class="booking-review-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v4M9 3v4M4 8.5h16M5 6h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/></svg></span>
+        <span class="booking-review-text"><strong>Serviço</strong><span id="reviewService">—</span></span>
+      </div>
+      <div class="booking-review-row">
+        <span class="booking-review-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+        <span class="booking-review-text"><strong>Data e horário</strong><span id="reviewDateTime">—</span></span>
+      </div>
+      <div class="booking-review-row">
+        <span class="booking-review-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3.5l4.5 4.5L8 20.5H3.5V16z"/></svg></span>
+        <span class="booking-review-text"><strong>Nome</strong><span id="reviewName">—</span></span>
+      </div>
+    </div>
+
+    <div class="booking-review-total">
+      <span>Valor estimado</span>
+      <strong id="reviewPrice">—</strong>
+    </div>
+
+    <div class="booking-modal-actions" id="bookingModalActions">
+      <button type="button" class="btn-ghost" onclick="closeBookingModal()">Cancelar</button>
+      <button type="button" class="btn-solid" onclick="finalizeBooking()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const screens=["homeScreen","servicesScreen","bookingScreen","profileScreen"];
 const navMap={home:"navHome",services:"navServices",booking:"navBooking",profile:"navProfile"};
@@ -2626,6 +2736,7 @@ function buildDateStrip(){
   const strip=document.getElementById("dateStrip");
   if(!strip) return;
   const dias=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+  const meses=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
   const hoje=new Date();
   let html="";
   for(let i=0;i<5;i++){
@@ -2633,7 +2744,8 @@ function buildDateStrip(){
     d.setDate(hoje.getDate()+i);
     const dow=dias[d.getDay()];
     const dnum=String(d.getDate()).padStart(2,"0");
-    html+=`<button class="date-pill${i===0?" selected":""}" onclick="selectDate(this)"><span class="dow">${dow}</span><span class="dnum">${dnum}</span></button>`;
+    const full=`${dow}, ${dnum} de ${meses[d.getMonth()]}`;
+    html+=`<button class="date-pill${i===0?" selected":""}" data-full="${full}" onclick="selectDate(this)"><span class="dow">${dow}</span><span class="dnum">${dnum}</span></button>`;
   }
   strip.innerHTML=html;
 }
@@ -2741,7 +2853,6 @@ function resetBookingWizard(presetServiceId){
 }
 
 function confirmBooking(){
-  const name=document.getElementById("name").value.trim() || "cliente";
   if(!bookingState.pro){
     alert("Escolha um profissional para continuar.");
     goToStep(1);
@@ -2757,7 +2868,63 @@ function confirmBooking(){
     alert("Escolha um horário para continuar.");
     return;
   }
-  alert("Perfeito, "+name+"! Seu agendamento de "+bookingState.service.name+" com "+bookingState.pro.name+" às "+timeBtn.textContent+" foi solicitado.");
+  openBookingReview();
+}
+
+/* Modal de confirmação de agendamento (revisão → sucesso) */
+const ICON_CALENDAR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="3"/><path d="M16 2.5v4M8 2.5v4M3.5 10h17"/></svg>';
+const ICON_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7.8 12.5l2.7 2.7 5.7-5.9"/></svg>';
+
+function openBookingReview(){
+  const name=document.getElementById("name").value.trim();
+  const timeBtn=document.querySelector(".time-dark.selected");
+  const datePill=document.querySelector(".date-pill.selected");
+  const dateLabel=datePill ? datePill.dataset.full : "";
+
+  document.getElementById("reviewPro").textContent=bookingState.pro.name;
+  document.getElementById("reviewService").textContent=bookingState.service.name+" · "+bookingState.service.duration;
+  document.getElementById("reviewDateTime").textContent=dateLabel+" às "+timeBtn.textContent;
+  document.getElementById("reviewName").textContent=name || "Não informado";
+  document.getElementById("reviewPrice").textContent=bookingState.service.price;
+
+  setBookingModalState("review");
+  document.getElementById("bookingModal").classList.add("show");
+}
+
+function setBookingModalState(state){
+  const card=document.getElementById("bookingModalCard");
+  const icon=document.getElementById("bookingModalIcon");
+  const title=document.getElementById("bookingModalTitle");
+  const subtitle=document.getElementById("bookingModalSubtitle");
+  const actions=document.getElementById("bookingModalActions");
+  if(state==="success"){
+    card.classList.add("is-success");
+    icon.innerHTML=ICON_CHECK;
+    title.textContent="Agendamento confirmado!";
+    subtitle.textContent="Prontinho! Te esperamos no salão no horário combinado.";
+    actions.innerHTML='<button type="button" class="btn-solid btn-full" onclick="finishBookingFlow()">Concluir</button>';
+  }else{
+    card.classList.remove("is-success");
+    icon.innerHTML=ICON_CALENDAR;
+    title.textContent="Confirmar agendamento";
+    subtitle.textContent="Revise os detalhes antes de confirmar seu horário.";
+    actions.innerHTML='<button type="button" class="btn-ghost" onclick="closeBookingModal()">Cancelar</button><button type="button" class="btn-solid" onclick="finalizeBooking()">Confirmar</button>';
+  }
+}
+
+function finalizeBooking(){
+  setBookingModalState("success");
+}
+function closeBookingModal(){
+  document.getElementById("bookingModal").classList.remove("show");
+}
+function outsideBookingModal(e){
+  if(e.target.id==="bookingModal") closeBookingModal();
+}
+function finishBookingFlow(){
+  closeBookingModal();
+  resetBookingWizard();
+  showHome();
 }
 function openModal(){document.getElementById("modal").classList.add("show")}
 function closeModal(){document.getElementById("modal").classList.remove("show")}
