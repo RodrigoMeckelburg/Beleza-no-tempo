@@ -559,6 +559,7 @@ a{text-decoration:none;color:inherit}
 }
 .pro-card:hover{background:rgba(255,255,255,.08);transform:translateY(-1px)}
 .pro-card.selected{border-color:var(--pink);background:rgba(242,122,197,.14)}
+.pro-card.is-hidden{display:none}
 .pro-avatar{
   width:36px;height:36px;border-radius:12px;flex-shrink:0;
   background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff;
@@ -2452,12 +2453,12 @@ button.notification.theme-toggle{
             <div class="booking-steps" id="bookingSteps">
               <div class="booking-step-node active" data-step="1">
                 <span class="booking-step-circle">1</span>
-                <span class="booking-step-label">Profissional</span>
+                <span class="booking-step-label">Serviço</span>
               </div>
               <span class="booking-step-line"></span>
               <div class="booking-step-node" data-step="2">
                 <span class="booking-step-circle">2</span>
-                <span class="booking-step-label">Serviço</span>
+                <span class="booking-step-label">Profissional</span>
               </div>
               <span class="booking-step-line"></span>
               <div class="booking-step-node" data-step="3">
@@ -2466,11 +2467,44 @@ button.notification.theme-toggle{
               </div>
             </div>
 
-            <!-- PASSO 1: Profissional -->
-            <div class="booking-step-panel" id="stepPro" data-step="1">
+            <!-- PASSO 1: Serviço -->
+            <div class="booking-step-panel" id="stepService" data-step="1">
               <div class="booking-step-head">
                 <div class="booking-step-head-text">
                   <span class="booking-step-eyebrow">Passo 1 de 3</span>
+                  <h4>Escolha o serviço</h4>
+                </div>
+              </div>
+              <div class="service-pick-list" id="servicePickList">
+                <button type="button" class="service-pick-item" data-id="corte" data-cat="cabelo" data-name="Corte & Styling" data-price="R$ 90,00" data-duration="45 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Corte & Styling</strong><span>45 min</span></span>
+                  <span class="service-pick-price">R$ 90,00</span>
+                </button>
+                <button type="button" class="service-pick-item" data-id="coloracao" data-cat="cabelo" data-name="Coloração" data-price="R$ 180,00" data-duration="120 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Coloração</strong><span>120 min</span></span>
+                  <span class="service-pick-price">R$ 180,00</span>
+                </button>
+                <button type="button" class="service-pick-item" data-id="unhas" data-cat="unhas" data-name="Unhas" data-price="R$ 55,00" data-duration="40 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Unhas</strong><span>40 min</span></span>
+                  <span class="service-pick-price">R$ 55,00</span>
+                </button>
+                <button type="button" class="service-pick-item" data-id="estetica" data-cat="estetica" data-name="Estética" data-price="R$ 120,00" data-duration="60 min" onclick="selectService(this)">
+                  <span class="service-pick-radio"></span>
+                  <span class="service-pick-info"><strong>Estética</strong><span>60 min</span></span>
+                  <span class="service-pick-price">R$ 120,00</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- PASSO 2: Profissional -->
+            <div class="booking-step-panel" id="stepPro" data-step="2" style="display:none">
+              <div class="booking-step-head">
+                <button type="button" class="booking-step-mini-back" onclick="goToStep(1)" aria-label="Voltar para serviço">←</button>
+                <div class="booking-step-head-text">
+                  <span class="booking-step-eyebrow">Passo 2 de 3</span>
                   <h4>Escolha o profissional</h4>
                 </div>
               </div>
@@ -2498,47 +2532,14 @@ button.notification.theme-toggle{
                   <span class="pro-name">Sem preferência</span>
                   <span class="pro-spec">Primeiro horário disponível</span>
                 </button>
-              </div>
-            </div>
-
-            <!-- PASSO 2: Serviço -->
-            <div class="booking-step-panel" id="stepService" data-step="2" style="display:none">
-              <div class="booking-step-head">
-                <button type="button" class="booking-step-mini-back" onclick="goToStep(1)" aria-label="Voltar para profissional">←</button>
-                <div class="booking-step-head-text">
-                  <span class="booking-step-eyebrow">Passo 2 de 3</span>
-                  <h4>Escolha o serviço</h4>
-                </div>
-              </div>
-              <div class="service-pick-list" id="servicePickList">
-                <button type="button" class="service-pick-item" data-id="corte" data-cat="cabelo" data-name="Corte & Styling" data-price="R$ 90,00" data-duration="45 min" onclick="selectService(this)">
-                  <span class="service-pick-radio"></span>
-                  <span class="service-pick-info"><strong>Corte & Styling</strong><span>45 min</span></span>
-                  <span class="service-pick-price">R$ 90,00</span>
-                </button>
-                <button type="button" class="service-pick-item" data-id="coloracao" data-cat="cabelo" data-name="Coloração" data-price="R$ 180,00" data-duration="120 min" onclick="selectService(this)">
-                  <span class="service-pick-radio"></span>
-                  <span class="service-pick-info"><strong>Coloração</strong><span>120 min</span></span>
-                  <span class="service-pick-price">R$ 180,00</span>
-                </button>
-                <button type="button" class="service-pick-item" data-id="unhas" data-cat="unhas" data-name="Unhas" data-price="R$ 55,00" data-duration="40 min" onclick="selectService(this)">
-                  <span class="service-pick-radio"></span>
-                  <span class="service-pick-info"><strong>Unhas</strong><span>40 min</span></span>
-                  <span class="service-pick-price">R$ 55,00</span>
-                </button>
-                <button type="button" class="service-pick-item" data-id="estetica" data-cat="estetica" data-name="Estética" data-price="R$ 120,00" data-duration="60 min" onclick="selectService(this)">
-                  <span class="service-pick-radio"></span>
-                  <span class="service-pick-info"><strong>Estética</strong><span>60 min</span></span>
-                  <span class="service-pick-price">R$ 120,00</span>
-                </button>
-                <p class="service-pick-empty" id="servicePickEmpty" style="display:none">Nenhum serviço disponível para este profissional.</p>
+                <p class="service-pick-empty" id="proPickEmpty" style="display:none;grid-column:1/-1">Nenhum profissional disponível para este serviço.</p>
               </div>
             </div>
 
             <!-- PASSO 3: Horário -->
             <div class="booking-step-panel" id="stepTime" data-step="3" style="display:none">
               <div class="booking-step-head">
-                <button type="button" class="booking-step-mini-back" onclick="goToStep(2)" aria-label="Voltar para serviço">←</button>
+                <button type="button" class="booking-step-mini-back" onclick="goToStep(2)" aria-label="Voltar para profissional">←</button>
                 <div class="booking-step-head-text">
                   <span class="booking-step-eyebrow">Passo 3 de 3</span>
                   <h4>Escolha o horário</h4>
@@ -2547,12 +2548,12 @@ button.notification.theme-toggle{
 
               <div class="summary-chips" id="summaryChips">
                 <button type="button" class="summary-chip" onclick="goToStep(1)">
-                  <span class="summary-chip-avatar" id="summaryProAvatar">AP</span>
-                  <span class="summary-chip-text"><strong id="summaryProName">—</strong><em>Trocar profissional</em></span>
-                </button>
-                <button type="button" class="summary-chip" onclick="goToStep(2)">
                   <span class="summary-chip-icon">✂</span>
                   <span class="summary-chip-text"><strong id="summaryServiceName">—</strong><em id="summaryServicePrice">Trocar serviço</em></span>
+                </button>
+                <button type="button" class="summary-chip" onclick="goToStep(2)">
+                  <span class="summary-chip-avatar" id="summaryProAvatar">AP</span>
+                  <span class="summary-chip-text"><strong id="summaryProName">—</strong><em>Trocar profissional</em></span>
                 </button>
               </div>
 
@@ -2771,46 +2772,11 @@ function goToStep(n){
   document.querySelectorAll(".booking-step-panel").forEach(p=>{
     p.style.display = Number(p.dataset.step)===n ? "block" : "none";
   });
-  if(n===2) renderServiceStep();
+  if(n===2) renderProStep();
   if(n===3) renderSummary();
   updateBookingStepper(n);
   const cardEl=document.querySelector(".booking-card");
   if(cardEl) cardEl.scrollIntoView({block:"start"});
-}
-
-function selectPro(el){
-  document.querySelectorAll(".pro-card").forEach(c=>c.classList.remove("selected"));
-  el.classList.add("selected");
-  bookingState.pro={
-    name:el.dataset.name,
-    spec:el.dataset.spec,
-    cat:el.dataset.cat,
-    initials:el.dataset.initials
-  };
-  setTimeout(()=>goToStep(2), 260);
-}
-
-function renderServiceStep(){
-  const cat=bookingState.pro ? bookingState.pro.cat : "all";
-  const items=document.querySelectorAll("#servicePickList .service-pick-item");
-  let visible=0;
-  items.forEach(item=>{
-    const match = cat==="all" || item.dataset.cat===cat;
-    item.classList.toggle("is-hidden", !match);
-    if(!match) item.classList.remove("selected");
-    if(match) visible++;
-  });
-  const emptyEl=document.getElementById("servicePickEmpty");
-  if(emptyEl) emptyEl.style.display = visible===0 ? "block" : "none";
-
-  if(bookingState.presetServiceId){
-    const presetId=bookingState.presetServiceId;
-    bookingState.presetServiceId=null;
-    const target=document.querySelector('#servicePickList .service-pick-item[data-id="'+presetId+'"]');
-    if(target && !target.classList.contains("is-hidden")){
-      selectService(target, true);
-    }
-  }
 }
 
 function selectService(el, quick){
@@ -2822,7 +2788,34 @@ function selectService(el, quick){
     duration:el.dataset.duration,
     cat:el.dataset.cat
   };
-  setTimeout(()=>goToStep(3), quick ? 380 : 260);
+  setTimeout(()=>goToStep(2), quick ? 380 : 260);
+}
+
+function renderProStep(){
+  const cat=bookingState.service ? bookingState.service.cat : "all";
+  const items=document.querySelectorAll("#proGrid .pro-card");
+  let visible=0;
+  items.forEach(item=>{
+    const pcat=item.dataset.cat;
+    const match = pcat==="all" || cat==="all" || pcat===cat;
+    item.classList.toggle("is-hidden", !match);
+    if(!match) item.classList.remove("selected");
+    if(match) visible++;
+  });
+  const emptyEl=document.getElementById("proPickEmpty");
+  if(emptyEl) emptyEl.style.display = visible===0 ? "block" : "none";
+}
+
+function selectPro(el){
+  document.querySelectorAll(".pro-card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+  bookingState.pro={
+    name:el.dataset.name,
+    spec:el.dataset.spec,
+    cat:el.dataset.cat,
+    initials:el.dataset.initials
+  };
+  setTimeout(()=>goToStep(3), 260);
 }
 
 function renderSummary(){
@@ -2839,8 +2832,11 @@ function renderSummary(){
 }
 
 function resetBookingWizard(presetServiceId){
-  bookingState={pro:null,service:null,presetServiceId:presetServiceId||null,step:1};
-  document.querySelectorAll(".pro-card").forEach(c=>c.classList.remove("selected"));
+  bookingState={pro:null,service:null,step:1};
+  document.querySelectorAll(".pro-card").forEach(c=>{
+    c.classList.remove("selected");
+    c.classList.remove("is-hidden");
+  });
   document.querySelectorAll(".service-pick-item").forEach(c=>{
     c.classList.remove("selected");
     c.classList.remove("is-hidden");
@@ -2850,16 +2846,20 @@ function resetBookingWizard(presetServiceId){
   if(nameInput) nameInput.value="";
   buildDateStrip();
   goToStep(1);
+  if(presetServiceId){
+    const target=document.querySelector('#servicePickList .service-pick-item[data-id="'+presetServiceId+'"]');
+    if(target) selectService(target, true);
+  }
 }
 
 function confirmBooking(){
-  if(!bookingState.pro){
-    alert("Escolha um profissional para continuar.");
+  if(!bookingState.service){
+    alert("Escolha um serviço para continuar.");
     goToStep(1);
     return;
   }
-  if(!bookingState.service){
-    alert("Escolha um serviço para continuar.");
+  if(!bookingState.pro){
+    alert("Escolha um profissional para continuar.");
     goToStep(2);
     return;
   }
