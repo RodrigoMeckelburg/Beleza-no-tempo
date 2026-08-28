@@ -163,6 +163,29 @@ a{text-decoration:none;color:inherit}
   background:var(--pink);
   left:50%;bottom:-9px;
 }
+.home-salon-search{
+  display:flex;align-items:center;gap:9px;
+  width:100%;
+  margin-top:18px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  padding:12px 14px;
+  position:relative;z-index:2;
+  color:#fff;
+  font-family:inherit;
+  text-align:left;
+  cursor:pointer;
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.home-salon-search:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);transform:translateY(-1px)}
+.home-salon-search .search-ic{width:14px;height:14px;color:#b0acb4;flex-shrink:0}
+.home-salon-search span{
+  flex:1;min-width:0;
+  font-size:10.5px;font-weight:600;color:#d8d5da;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.home-salon-search .chev{width:12px;height:12px;color:#918d96;flex-shrink:0}
 
 /* Hero card */
 .home{padding:16px}
@@ -1006,24 +1029,23 @@ button.notification.theme-toggle{
 }
 .services-modern-list{
   display:grid;
-  gap:11px;
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:12px;
 }
 .service-modern-card{
-  display:grid;
-  grid-template-columns:104px minmax(0,1fr) 34px;
-  align-items:center;
-  gap:12px;
-  padding:10px;
-  border-radius:22px;
+  display:flex;
+  flex-direction:column;
+  border-radius:18px;
   background:var(--white);
   border:1px solid var(--border);
   box-shadow:0 12px 28px rgba(25,18,25,.055);
+  overflow:hidden;
   cursor:pointer;
   transition:transform .2s,border-color .2s,box-shadow .2s,opacity .18s;
   animation:serviceCardIn .32s ease both;
 }
 .service-modern-card:hover{
-  transform:translateY(-2px);
+  transform:translateY(-3px);
   border-color:rgba(242,122,197,.35);
   box-shadow:0 18px 34px rgba(25,18,25,.10);
 }
@@ -1058,85 +1080,92 @@ button.notification.theme-toggle{
   margin-bottom:4px;
 }
 .service-modern-image{
-  width:104px;height:104px;
-  border-radius:17px;
-  overflow:hidden;
+  width:100%;
+  height:118px;
   position:relative;
   background:#29282c;
+  flex:0 0 auto;
 }
 .service-modern-image img{
   width:100%;height:100%;
   object-fit:cover;
   display:block;
 }
-.service-modern-image:after{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.18));
-}
-.service-modern-icon{
+.service-modern-badge{
   position:absolute;
   z-index:2;
-  left:8px;bottom:8px;
-  width:27px;height:27px;
-  display:grid;place-items:center;
-  border-radius:9px;
+  left:9px;top:9px;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:7.5px;
+  font-weight:800;
+  letter-spacing:.03em;
+  text-transform:uppercase;
   color:#fff;
-  background:rgba(20,18,22,.70);
-  border:1px solid rgba(255,255,255,.14);
-  backdrop-filter:blur(8px);
-  font-size:12px;
+  background:rgba(242,122,197,.94);
+  backdrop-filter:blur(6px);
 }
-.service-modern-body{min-width:0}
-.service-modern-top{
+.service-modern-badge.is-gold{
+  background:rgba(199,146,44,.94);
+}
+.service-modern-body{
+  min-width:0;
   display:flex;
-  align-items:center;
-  gap:6px;
-  margin-bottom:5px;
+  flex-direction:column;
+  gap:5px;
+  padding:11px 12px 13px;
 }
 .service-modern-body h3{
   margin:0;
-  font-size:13px;
-  line-height:1.2;
+  font-size:12.5px;
+  line-height:1.25;
   letter-spacing:-.015em;
-}
-.service-modern-tag{
-  font-size:6px;
-  font-weight:800;
-  color:var(--pink);
-  background:var(--soft);
-  border-radius:999px;
-  padding:4px 6px;
-  text-transform:uppercase;
-  letter-spacing:.04em;
 }
 .service-modern-body p{
   margin:0;
   color:var(--gray);
-  font-size:8px;
+  font-size:9px;
   line-height:1.45;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.service-modern-duration{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  color:var(--gray);
+  font-size:8px;
+}
+.service-modern-duration svg{width:10px;height:10px;flex:0 0 auto}
+.service-modern-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:6px;
 }
 .service-modern-price{
-  margin-top:9px;
   color:var(--pink);
-  font-size:9px;
+  font-size:12px;
   font-weight:800;
+  white-space:nowrap;
 }
-.service-modern-arrow{
-  width:34px;height:34px;
-  border:1px solid var(--border);
-  background:var(--chip);
-  color:var(--text);
-  border-radius:12px;
-  display:grid;place-items:center;
-  font-size:18px;
-  transition:.2s;
-}
-.service-modern-card:hover .service-modern-arrow{
+.service-modern-btn{
+  border:none;
   background:var(--pink);
   color:#fff;
-  border-color:var(--pink);
-  transform:translateX(1px);
+  font-size:9.5px;
+  font-weight:700;
+  padding:7px 13px;
+  border-radius:999px;
+  white-space:nowrap;
+  transition:transform .15s,box-shadow .15s;
+}
+.service-modern-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px rgba(242,122,197,.35);
 }
 
 /* Desktop */
@@ -1158,26 +1187,747 @@ button.notification.theme-toggle{
   .service-filters{margin-bottom:20px}
   .service-filter{font-size:10px;padding:9px 15px}
   .services-modern-list{
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:16px;
   }
   .service-modern-card{
-    grid-template-columns:140px minmax(0,1fr) 40px;
-    padding:12px;
-    border-radius:24px;
+    border-radius:20px;
   }
-  .service-modern-image{width:140px;height:140px;border-radius:19px}
-  .service-modern-icon{width:31px;height:31px;border-radius:10px}
-  .service-modern-body h3{font-size:16px}
-  .service-modern-body p{font-size:10px}
-  .service-modern-price{font-size:11px}
-  .service-modern-arrow{width:40px;height:40px;border-radius:14px}
+  .service-modern-image{height:150px}
+  .service-modern-badge{font-size:9px;padding:5px 12px}
+  .service-modern-body{padding:14px 15px 16px;gap:6px}
+  .service-modern-body h3{font-size:15px}
+  .service-modern-body p{font-size:11px}
+  .service-modern-duration{font-size:9px}
+  .service-modern-duration svg{width:11px;height:11px}
+  .service-modern-price{font-size:15px}
+  .service-modern-btn{font-size:11px;padding:8px 16px}
+}
+
+/* ===== AUTENTICAÇÃO: Login / Cadastro / Recuperar senha ===== */
+.auth-screen{
+  position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;
+  display:flex;flex-direction:column;
+  background:var(--light);
+  overflow-y:auto;
+}
+.auth-panel-dark{
+  flex-shrink:0;
+  background:var(--black2);
+  color:#fff;
+  padding:38px 24px 30px;
+  position:relative;
+  overflow:hidden;
+}
+.auth-panel-dark:before{
+  content:"";
+  position:absolute;
+  width:200px;height:200px;
+  right:-100px;top:-110px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,255,255,.018);
+}
+.auth-panel-dark:after{
+  content:"";
+  position:absolute;
+  width:140px;height:140px;
+  left:-70px;bottom:-80px;
+  border-radius:50%;
+  background:rgba(242,122,197,.12);
+  filter:blur(4px);
+}
+.auth-panel-content{position:relative;z-index:2}
+.auth-brand-mark{
+  width:38px;height:38px;
+  background:var(--pink);color:#fff;
+  display:grid;place-items:center;
+  border-radius:13px 13px 13px 4px;
+  font-family:"Playfair Display",serif;
+  font-size:19px;
+  margin-bottom:16px;
+}
+.auth-eyebrow{
+  color:var(--pink2);
+  font-size:8px;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.auth-panel-content h1{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  font-size:27px;line-height:1.08;letter-spacing:-.02em;
+}
+.auth-panel-content p{
+  margin:10px 0 0;
+  color:#aaa7ae;
+  font-size:10px;line-height:1.6;max-width:320px;
+}
+.auth-panel-quote{display:none}
+
+.auth-panel-form{
+  flex:1;
+  min-height:0;
+  padding:26px 22px 44px;
+  overflow-y:auto;
+}
+.auth-form-wrap{width:100%;max-width:380px;margin:0 auto}
+.auth-card{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  flex:1;
+  min-height:0;
+}
+.auth-role{
+  display:flex;gap:6px;margin-bottom:22px;
+  border:1px solid var(--border);background:var(--white);
+  border-radius:14px;padding:4px;
+}
+.auth-role-btn{
+  flex:1;border:0;background:none;color:var(--gray);
+  padding:10px 6px;border-radius:11px;
+  font-size:9.5px;font-weight:700;font-family:inherit;
+  transition:.18s;
+}
+.auth-role-btn.active{
+  background:var(--pink);color:#fff;
+  box-shadow:0 8px 18px rgba(242,122,197,.28);
+}
+.auth-back{
+  border:0;background:var(--chip);color:var(--text);
+  width:32px;height:32px;border-radius:11px;font-size:14px;
+  margin-bottom:14px;cursor:pointer;
+}
+.auth-view h2{
+  margin:0 0 4px;
+  font-family:"Playfair Display",serif;
+  font-size:22px;letter-spacing:-.02em;
+}
+.auth-sub{margin:0 0 20px;color:var(--gray);font-size:10px}
+.auth-label{
+  display:block;font-size:8px;font-weight:700;color:var(--gray);
+  margin:14px 0 6px;letter-spacing:.03em;
+}
+.auth-input{
+  width:100%;padding:12px 13px;border-radius:12px;
+  border:1px solid var(--border);background:var(--input);color:var(--text);
+  outline:none;font-size:11px;font-family:inherit;
+}
+.auth-input:focus{border-color:var(--pink)}
+.auth-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:12px;gap:10px;
+}
+.auth-check{
+  display:flex;align-items:center;gap:7px;
+  font-size:9px;color:var(--gray);font-weight:600;
+  cursor:pointer;user-select:none;white-space:nowrap;
+}
+.auth-check input{display:none}
+.auth-check .box{
+  width:16px;height:16px;border-radius:5px;flex-shrink:0;
+  border:1.5px solid var(--border);background:var(--white);
+  display:grid;place-items:center;position:relative;transition:.15s;
+}
+.auth-check input:checked + .box{background:var(--pink);border-color:var(--pink)}
+.auth-check input:checked + .box:after{
+  content:"";
+  width:8px;height:5px;
+  border-left:2px solid #fff;border-bottom:2px solid #fff;
+  transform:rotate(-45deg) translateY(-1px);
+}
+.auth-forgot{
+  font-size:9px;color:var(--pink);font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.auth-submit{
+  width:100%;border:0;background:var(--pink);color:#fff;
+  border-radius:13px;padding:14px;margin-top:18px;
+  font-weight:700;font-size:11px;font-family:inherit;
+  cursor:pointer;transition:transform .15s,box-shadow .15s;
+}
+.auth-submit:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(242,122,197,.32)}
+.auth-switch{text-align:center;margin-top:18px;font-size:10px;color:var(--gray)}
+.auth-switch a{color:var(--pink);font-weight:700;cursor:pointer}
+
+@media(min-width:601px){
+  .auth-screen{
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    padding:38px;
+    background:radial-gradient(circle at 16% 12%,var(--soft) 0%,var(--light) 55%);
+  }
+  .auth-card{
+    flex:none;
+    flex-direction:row;
+    width:100%;
+    max-width:960px;
+    height:680px;max-height:88vh;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:var(--white);
+  }
+  .auth-panel-dark{
+    width:38%;max-width:360px;
+    flex-shrink:0;
+    padding:44px 38px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .auth-panel-content h1{font-size:32px}
+  .auth-panel-content p{font-size:12.5px;max-width:270px}
+  .auth-panel-quote{
+    display:block;position:relative;z-index:2;
+    border-top:1px solid rgba(255,255,255,.1);
+    padding-top:18px;margin-top:26px;
+  }
+  .auth-panel-quote p{
+    font-size:12px;color:#ddd;font-style:italic;line-height:1.6;margin:0;
+  }
+  .auth-panel-quote span{
+    display:block;margin-top:9px;font-size:9.5px;color:var(--pink2);font-weight:700;
+  }
+  .auth-panel-form{
+    flex:1;
+    min-width:0;
+    min-height:0;
+    overflow-y:auto;
+    padding:40px 44px;
+  }
+  .auth-form-wrap{max-width:380px}
+  .auth-role-btn{font-size:11px;padding:10px 8px}
+  .auth-view h2{font-size:23px}
+  .auth-sub{font-size:11px}
+  .auth-label{font-size:9px}
+  .auth-input{font-size:12px;padding:12px 13px}
+  .auth-submit{font-size:12px;padding:14px}
+}
+
+/* ===== BUSCA DE SALÃO (pós-login do cliente) ===== */
+.salon-screen{
+  position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;
+  display:none;
+  flex-direction:column;
+  background:var(--light);
+  overflow-y:auto;
+}
+.salon-card{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  flex:1;
+  min-height:0;
+}
+.salon-hero{
+  flex-shrink:0;
+  background:var(--black2);
+  color:#fff;
+  padding:34px 20px 42px;
+  position:relative;
+  overflow:hidden;
+}
+.salon-hero:before{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-100px;top:-100px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,255,255,.018);
+}
+.salon-hero:after{
+  content:"";
+  position:absolute;
+  width:130px;height:130px;
+  left:-70px;bottom:-85px;
+  border-radius:50%;
+  background:rgba(242,122,197,.12);
+  filter:blur(4px);
+}
+.salon-hero-content{position:relative;z-index:2}
+.salon-hero .auth-brand-mark{margin-bottom:14px}
+.salon-hero h1{
+  margin:0;
+  font-family:"Playfair Display",serif;
+  font-size:24px;
+  line-height:1.14;
+  letter-spacing:-.02em;
+  max-width:320px;
+}
+.salon-hero p{
+  margin:8px 0 0;
+  color:#aaa7ae;
+  font-size:10.5px;
+  line-height:1.55;
+  max-width:300px;
+  position:relative;z-index:2;
+}
+.salon-search-wrap{
+  position:relative;z-index:2;
+  margin-top:22px;
+}
+.salon-search{
+  display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;
+  padding:13px 15px;
+}
+.salon-search svg{width:15px;height:15px;color:#b0acb4;flex-shrink:0}
+.salon-search input{
+  border:0;outline:0;background:none;width:100%;
+  font-size:11px;color:#fff;font-family:inherit;
+}
+.salon-search input::placeholder{color:#918d96}
+
+.salon-body{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  padding:24px 20px 8px;
+}
+.salon-filters{
+  display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin:0 0 16px;
+}
+.salon-filters::-webkit-scrollbar{display:none}
+.salon-filter{
+  flex:0 0 auto;
+  border:1px solid var(--border);
+  background:var(--white);
+  color:var(--gray);
+  border-radius:999px;
+  padding:8px 13px;
+  font-size:8.5px;
+  font-weight:700;
+  font-family:inherit;
+  transition:.15s;
+}
+.salon-filter.active{
+  background:var(--pink);color:#fff;border-color:var(--pink);
+  box-shadow:0 8px 18px rgba(242,122,197,.22);
+}
+.salon-filter:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.salon-count{
+  font-size:9px;font-weight:700;color:var(--gray);
+  text-transform:uppercase;letter-spacing:.05em;
+  margin:0 2px 12px;
+}
+.salon-list{
+  display:flex;flex-direction:column;gap:11px;
+}
+.salon-card-item{
+  display:flex;align-items:center;gap:12px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:19px;
+  padding:11px;
+  cursor:pointer;
+  transition:transform .18s,border-color .18s,box-shadow .18s,opacity .18s,background .18s;
+  animation:salonCardIn .32s ease both;
+}
+.salon-card-item:hover{
+  transform:translateY(-2px);
+  border-color:rgba(242,122,197,.35);
+  box-shadow:0 14px 30px rgba(25,18,25,.08);
+}
+.salon-card-item:focus-visible{
+  outline:none;border-color:var(--pink);
+  box-shadow:0 0 0 2px var(--pink);
+}
+.salon-card-item.is-selected{
+  border-color:var(--pink);
+  box-shadow:0 0 0 2px var(--pink);
+  background:var(--soft);
+}
+.salon-card-item.is-hidden{display:none}
+@keyframes salonCardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.salon-card-item{animation:none}}
+
+.salon-card-img{
+  width:64px;height:64px;border-radius:14px;overflow:hidden;
+  flex-shrink:0;position:relative;background:#e9e7ea;
+}
+.salon-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.salon-badge{
+  position:absolute;left:4px;top:4px;
+  padding:2.5px 6px;border-radius:999px;
+  font-size:6px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;
+  color:#fff;background:rgba(199,146,44,.94);
+}
+
+.salon-card-info{min-width:0;flex:1}
+.salon-card-top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
+}
+.salon-card-top h3{
+  margin:0;font-size:12.5px;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.salon-card-rating{
+  display:flex;align-items:center;gap:3px;flex-shrink:0;
+  font-size:10px;font-weight:800;color:var(--text);
+}
+.salon-card-rating svg{width:10px;height:10px;color:#f2b705}
+.salon-card-loc{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:3px;
+  font-size:9px;color:var(--gray);
+}
+.salon-card-loc span{display:flex;align-items:center;gap:4px}
+.salon-card-loc svg{width:10px;height:10px;flex-shrink:0}
+.salon-card-status.is-open{color:#1c9a5b;font-weight:700}
+.salon-card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.salon-tag{
+  background:var(--chip);color:var(--gray);
+  font-size:7.5px;font-weight:700;
+  padding:3px 8px;border-radius:999px;
+}
+.salon-card-choose{
+  flex-shrink:0;border:none;background:var(--pink);color:#fff;
+  font-size:9px;font-weight:700;padding:9px 12px;
+  font-family:inherit;
+  border-radius:999px;white-space:nowrap;
+  transition:transform .15s,box-shadow .15s;
+}
+.salon-card-choose:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(242,122,197,.32)}
+
+.salon-empty{
+  display:none;text-align:center;padding:36px 16px;color:var(--gray);
+  font-size:10px;border:1px dashed var(--border);border-radius:20px;
+}
+.salon-empty strong{display:block;color:var(--text);font-size:12px;margin-bottom:4px}
+
+.salon-skip{
+  display:block;margin:20px auto 26px;background:none;border:0;
+  color:var(--gray);font-size:9.5px;font-weight:700;
+  font-family:inherit;text-decoration:underline;text-underline-offset:2px;
+  cursor:pointer;
+}
+
+@media(min-width:601px){
+  .salon-screen{
+    align-items:center;justify-content:center;padding:38px;
+    background:radial-gradient(circle at 16% 12%,var(--soft) 0%,var(--light) 55%);
+  }
+  .salon-card{
+    flex:none;
+    width:100%;max-width:760px;
+    height:700px;max-height:88vh;
+    border-radius:30px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:var(--white);
+  }
+  .salon-hero{padding:36px 42px 48px}
+  .salon-hero h1{font-size:29px;max-width:440px}
+  .salon-hero p{font-size:11.5px;max-width:400px}
+  .salon-body{padding:26px 42px 10px;min-height:0}
+  .salon-list{gap:12px}
+  .salon-card-item{padding:13px}
+  .salon-card-img{width:76px;height:76px}
+  .salon-card-top h3{font-size:13.5px}
 }
 
 </style>
 </head>
 
 <body>
+
+<div class="auth-screen" id="authScreen">
+ <div class="auth-card">
+
+  <div class="auth-panel-dark">
+    <button class="notification theme-toggle" style="position:absolute;top:18px;right:18px;z-index:3" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <div class="auth-panel-content">
+      <div class="auth-brand-mark">B</div>
+      <div class="auth-eyebrow">BELEZA NO TEMPO</div>
+      <h1>Seu salão,<br>na palma da mão.</h1>
+      <p>Agende serviços, acompanhe horários e cuide de você — tudo em um só lugar.</p>
+    </div>
+    <div class="auth-panel-quote">
+      <p>"Agendo tudo em segundos e nunca mais esqueci um horário."</p>
+      <span>— Camila R., cliente desde 2023</span>
+    </div>
+  </div>
+
+  <div class="auth-panel-form">
+    <div class="auth-form-wrap">
+
+      <div class="auth-role" id="authRoleTabs">
+        <button type="button" class="auth-role-btn active" data-role="cliente" onclick="selectRole(this)">Sou Cliente</button>
+        <button type="button" class="auth-role-btn" data-role="profissional" onclick="selectRole(this)">Sou Profissional</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="auth-view" id="authLogin">
+        <h2>Bem-vinda de volta</h2>
+        <p class="auth-sub">Entre com sua conta para continuar.</p>
+        <form onsubmit="return doAuth(event,'login')">
+
+          <div id="loginCliente">
+            <label class="auth-label">CPF</label>
+            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
+          </div>
+          <div id="loginProfissional" style="display:none">
+            <label class="auth-label">CPF/CNPJ</label>
+            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
+          </div>
+
+          <label class="auth-label">SENHA</label>
+          <input class="auth-input" type="password" placeholder="••••••••" required>
+          <div class="auth-row">
+            <label class="auth-check">
+              <input type="checkbox" checked>
+              <span class="box"></span>
+              Manter conectado
+            </label>
+            <a class="auth-forgot" onclick="showAuth('forgot')">Esqueci minha senha</a>
+          </div>
+          <button type="submit" class="auth-submit">Entrar →</button>
+        </form>
+        <div class="auth-switch">Ainda não tem conta? <a onclick="showAuth('signup')">Criar conta</a></div>
+      </div>
+
+      <!-- CADASTRO -->
+      <div class="auth-view" id="authSignup" style="display:none">
+        <button class="auth-back" onclick="showAuth('login')" aria-label="Voltar">←</button>
+        <h2>Criar conta</h2>
+        <p class="auth-sub">Leva menos de um minuto.</p>
+        <form onsubmit="return doAuth(event,'signup')">
+
+          <!-- CAMPOS: CLIENTE -->
+          <div id="fieldsCliente">
+            <label class="auth-label">NOME</label>
+            <input class="auth-input" type="text" placeholder="Seu nome completo" required>
+            <label class="auth-label">CPF</label>
+            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
+            <label class="auth-label">WHATSAPP</label>
+            <input class="auth-input" type="tel" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)" required>
+            <label class="auth-label">SENHA</label>
+            <input class="auth-input auth-pass" type="password" placeholder="Crie uma senha" required>
+            <label class="auth-label">CONFIRMAR SENHA</label>
+            <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a senha" required>
+          </div>
+
+          <!-- CAMPOS: PROFISSIONAL -->
+          <div id="fieldsProfissional" style="display:none">
+            <label class="auth-label">NOME DO SALÃO</label>
+            <input class="auth-input" type="text" placeholder="Nome do seu salão" required>
+            <label class="auth-label">NOME DO RESPONSÁVEL</label>
+            <input class="auth-input" type="text" placeholder="Seu nome completo" required>
+            <label class="auth-label">CPF/CNPJ</label>
+            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
+            <label class="auth-label">WHATSAPP</label>
+            <input class="auth-input" type="tel" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)" required>
+            <label class="auth-label">ENDEREÇO</label>
+            <input class="auth-input" type="text" placeholder="Rua, número, bairro, cidade" required>
+            <label class="auth-label">SENHA</label>
+            <input class="auth-input auth-pass" type="password" placeholder="Crie uma senha" required>
+            <label class="auth-label">CONFIRMAR SENHA</label>
+            <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a senha" required>
+          </div>
+
+          <div class="auth-row">
+            <label class="auth-check">
+              <input type="checkbox" checked>
+              <span class="box"></span>
+              Manter conectado
+            </label>
+          </div>
+
+          <button type="submit" class="auth-submit">Criar conta →</button>
+        </form>
+        <div class="auth-switch">Já tem conta? <a onclick="showAuth('login')">Entrar</a></div>
+      </div>
+
+      <!-- RECUPERAR SENHA -->
+      <div class="auth-view" id="authForgot" style="display:none">
+        <button class="auth-back" onclick="showAuth('login')" aria-label="Voltar">←</button>
+        <h2>Recuperar senha</h2>
+        <p class="auth-sub">Informe seu documento e defina uma nova senha.</p>
+        <form onsubmit="return doAuth(event,'forgot')">
+
+          <div id="forgotCliente">
+            <label class="auth-label">CPF</label>
+            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
+          </div>
+          <div id="forgotProfissional" style="display:none">
+            <label class="auth-label">CPF/CNPJ</label>
+            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
+          </div>
+
+          <label class="auth-label">DIGITAR NOVA SENHA</label>
+          <input class="auth-input auth-pass" type="password" placeholder="Nova senha" required>
+          <label class="auth-label">REPETIR NOVA SENHA</label>
+          <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a nova senha" required>
+
+          <button type="submit" class="auth-submit">Redefinir senha →</button>
+        </form>
+        <div class="auth-switch">Lembrou a senha? <a onclick="showAuth('login')">Entrar</a></div>
+      </div>
+
+    </div>
+  </div>
+
+ </div>
+</div>
+
+<div class="salon-screen" id="salonScreen" style="display:none">
+ <div class="salon-card">
+
+  <div class="salon-hero">
+    <button class="notification" style="position:absolute;top:18px;right:60px;z-index:3" onclick="enterApp()" aria-label="Fechar busca" title="Fechar">✕</button>
+    <button class="notification theme-toggle" style="position:absolute;top:18px;right:18px;z-index:3" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <div class="salon-hero-content">
+      <div class="auth-brand-mark">B</div>
+      <div class="auth-eyebrow">BELEZA NO TEMPO</div>
+      <h1>Encontre o salão ideal para você</h1>
+      <p>Busque por nome, bairro ou especialidade e escolha onde deseja agendar seu próximo horário.</p>
+      <div class="salon-search-wrap">
+        <div class="salon-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input id="salonSearchInput" type="text" placeholder="Buscar por nome, bairro ou serviço..." oninput="filterSalons()" aria-label="Buscar salão">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="salon-body">
+
+    <div class="salon-filters" id="salonFilters" role="group" aria-label="Filtrar salões por categoria">
+      <button type="button" class="salon-filter active" data-filter="all" aria-pressed="true">Todos</button>
+      <button type="button" class="salon-filter" data-filter="cabelo" aria-pressed="false">Cabelo</button>
+      <button type="button" class="salon-filter" data-filter="unhas" aria-pressed="false">Unhas</button>
+      <button type="button" class="salon-filter" data-filter="estetica" aria-pressed="false">Estética</button>
+      <button type="button" class="salon-filter" data-filter="coloracao" aria-pressed="false">Coloração</button>
+    </div>
+
+    <div class="salon-count" id="salonCount" aria-live="polite">6 salões encontrados</div>
+
+    <div class="salon-list" id="salonList">
+
+      <article class="salon-card-item" role="button" tabindex="0" data-cat="cabelo coloracao" data-search="ateliê fio de ouro pinheiros cabelo coloração" onclick="chooseSalon(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="salon-card-img">
+          <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=200&q=80" alt="" loading="lazy" decoding="async">
+          <span class="salon-badge">Destaque</span>
+        </div>
+        <div class="salon-card-info">
+          <div class="salon-card-top">
+            <h3>Ateliê Fio de Ouro</h3>
+            <div class="salon-card-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>4.9</div>
+          </div>
+          <div class="salon-card-loc">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>Pinheiros · 1,2 km</span>
+            <span class="salon-card-status is-open">Aberto agora</span>
+          </div>
+          <div class="salon-card-tags"><span class="salon-tag">Cabelo</span><span class="salon-tag">Coloração</span></div>
+        </div>
+        <button type="button" class="salon-card-choose" onclick="event.stopPropagation();chooseSalon(this.closest('.salon-card-item'))">Escolher →</button>
+      </article>
+
+      <article class="salon-card-item" role="button" tabindex="0" data-cat="unhas estetica" data-search="espaço rainha vila madalena unhas estética" onclick="chooseSalon(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="salon-card-img">
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=200&q=80" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="salon-card-info">
+          <div class="salon-card-top">
+            <h3>Espaço Rainha</h3>
+            <div class="salon-card-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>4.8</div>
+          </div>
+          <div class="salon-card-loc">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>Vila Madalena · 2,4 km</span>
+            <span class="salon-card-status is-open">Aberto agora</span>
+          </div>
+          <div class="salon-card-tags"><span class="salon-tag">Unhas</span><span class="salon-tag">Estética</span></div>
+        </div>
+        <button type="button" class="salon-card-choose" onclick="event.stopPropagation();chooseSalon(this.closest('.salon-card-item'))">Escolher →</button>
+      </article>
+
+      <article class="salon-card-item" role="button" tabindex="0" data-cat="coloracao cabelo" data-search="clarear studio moema coloração cabelo" onclick="chooseSalon(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="salon-card-img">
+          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=200&q=80" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="salon-card-info">
+          <div class="salon-card-top">
+            <h3>Clarear Studio</h3>
+            <div class="salon-card-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>4.9</div>
+          </div>
+          <div class="salon-card-loc">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>Moema · 3,1 km</span>
+            <span class="salon-card-status is-open">Aberto agora</span>
+          </div>
+          <div class="salon-card-tags"><span class="salon-tag">Coloração</span><span class="salon-tag">Cabelo</span></div>
+        </div>
+        <button type="button" class="salon-card-choose" onclick="event.stopPropagation();chooseSalon(this.closest('.salon-card-item'))">Escolher →</button>
+      </article>
+
+      <article class="salon-card-item" role="button" tabindex="0" data-cat="unhas cabelo" data-search="toque real hair nails itaim bibi unhas cabelo" onclick="chooseSalon(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="salon-card-img">
+          <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=200&q=80" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="salon-card-info">
+          <div class="salon-card-top">
+            <h3>Toque Real Hair &amp; Nails</h3>
+            <div class="salon-card-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>4.6</div>
+          </div>
+          <div class="salon-card-loc">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>Itaim Bibi · 0,8 km</span>
+            <span class="salon-card-status is-open">Aberto agora</span>
+          </div>
+          <div class="salon-card-tags"><span class="salon-tag">Unhas</span><span class="salon-tag">Cabelo</span></div>
+        </div>
+        <button type="button" class="salon-card-choose" onclick="event.stopPropagation();chooseSalon(this.closest('.salon-card-item'))">Escolher →</button>
+      </article>
+
+      <article class="salon-card-item" role="button" tabindex="0" data-cat="estetica coloracao" data-search="pétalas spa urbano vila mariana estética coloração" onclick="chooseSalon(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="salon-card-img">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=200&q=80" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="salon-card-info">
+          <div class="salon-card-top">
+            <h3>Pétalas Spa Urbano</h3>
+            <div class="salon-card-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>4.8</div>
+          </div>
+          <div class="salon-card-loc">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>Vila Mariana · 4,0 km</span>
+            <span class="salon-card-status is-open">Aberto agora</span>
+          </div>
+          <div class="salon-card-tags"><span class="salon-tag">Estética</span><span class="salon-tag">Coloração</span></div>
+        </div>
+        <button type="button" class="salon-card-choose" onclick="event.stopPropagation();chooseSalon(this.closest('.salon-card-item'))">Escolher →</button>
+      </article>
+
+      <article class="salon-card-item" role="button" tabindex="0" data-cat="cabelo unhas estetica" data-search="studio belle époque jardins cabelo unhas estética" onclick="chooseSalon(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+        <div class="salon-card-img">
+          <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=200&q=80" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="salon-card-info">
+          <div class="salon-card-top">
+            <h3>Studio Belle Époque</h3>
+            <div class="salon-card-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>4.7</div>
+          </div>
+          <div class="salon-card-loc">
+            <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.3"/></svg>Jardins · 1,7 km</span>
+            <span class="salon-card-status">Fechado agora</span>
+          </div>
+          <div class="salon-card-tags"><span class="salon-tag">Cabelo</span><span class="salon-tag">Unhas</span><span class="salon-tag">Estética</span></div>
+        </div>
+        <button type="button" class="salon-card-choose" onclick="event.stopPropagation();chooseSalon(this.closest('.salon-card-item'))">Escolher →</button>
+      </article>
+
+    </div>
+
+    <div class="salon-empty" id="salonEmpty">
+      <strong>Nenhum salão encontrado</strong>
+      Tente buscar outro nome, bairro ou categoria.
+    </div>
+
+    <button type="button" class="salon-skip" onclick="skipSalonSearch()">Decidir depois</button>
+
+  </div>
+
+ </div>
+</div>
+
 <div class="desktop">
 
   <aside id="sidebar">
@@ -1226,6 +1976,12 @@ button.notification.theme-toggle{
             <span class="active">Perto de você</span>
             <span>Mais procurados</span>
           </div>
+
+          <button type="button" class="home-salon-search" onclick="showSalonSearch()" aria-label="Buscar salão">
+            <svg class="search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            <span>Buscar outro salão</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
         </div>
 
         <div class="home">
@@ -1331,66 +2087,68 @@ button.notification.theme-toggle{
 
     <div class="services-modern-list" id="servicesList">
 
-      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Corte & Styling, a partir de R$ 90 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Corte & Styling, R$ 90,00 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=700&q=85" alt="Corte e styling" loading="lazy" decoding="async">
-          <span class="service-modern-icon" aria-hidden="true">✂</span>
+          <span class="service-modern-badge">Cabelo</span>
         </div>
         <div class="service-modern-body">
-          <div class="service-modern-top">
-            <h3>Corte & Styling</h3>
-            <span class="service-modern-tag">Popular</span>
-          </div>
+          <h3>Corte & Styling</h3>
           <p>Corte, escova e finalização personalizados para o seu estilo.</p>
-          <div class="service-modern-price">A partir de R$ 90</div>
+          <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 45 min</div>
+          <div class="service-modern-footer">
+            <div class="service-modern-price">R$ 90,00</div>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+          </div>
         </div>
-        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
-      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Coloração, a partir de R$ 180 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="cabelo" role="button" tabindex="0" aria-label="Coloração, R$ 180,00 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=85" alt="Coloração" loading="lazy" decoding="async">
-          <span class="service-modern-icon" aria-hidden="true">◉</span>
+          <span class="service-modern-badge is-gold">Coloração</span>
         </div>
         <div class="service-modern-body">
-          <div class="service-modern-top">
-            <h3>Coloração</h3>
-          </div>
+          <h3>Coloração</h3>
           <p>Cor, luzes e transformação dos fios com acabamento sofisticado.</p>
-          <div class="service-modern-price">A partir de R$ 180</div>
+          <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 120 min</div>
+          <div class="service-modern-footer">
+            <div class="service-modern-price">R$ 180,00</div>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+          </div>
         </div>
-        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
-      <article class="service-modern-card" data-category="unhas" role="button" tabindex="0" aria-label="Unhas, a partir de R$ 55 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="unhas" role="button" tabindex="0" aria-label="Unhas, R$ 55,00 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=700&q=85" alt="Unhas" loading="lazy" decoding="async">
-          <span class="service-modern-icon" aria-hidden="true">♧</span>
+          <span class="service-modern-badge">Unhas</span>
         </div>
         <div class="service-modern-body">
-          <div class="service-modern-top">
-            <h3>Unhas</h3>
-            <span class="service-modern-tag">Favorito</span>
-          </div>
+          <h3>Unhas</h3>
           <p>Manicure, pedicure e nail art para completar o seu visual.</p>
-          <div class="service-modern-price">A partir de R$ 55</div>
+          <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 40 min</div>
+          <div class="service-modern-footer">
+            <div class="service-modern-price">R$ 55,00</div>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+          </div>
         </div>
-        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
-      <article class="service-modern-card" data-category="estetica" role="button" tabindex="0" aria-label="Estética, a partir de R$ 120 — toque para agendar" onclick="showBooking()">
+      <article class="service-modern-card" data-category="estetica" role="button" tabindex="0" aria-label="Estética, R$ 120,00 — toque para agendar" onclick="showBooking()">
         <div class="service-modern-image">
           <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=700&q=85" alt="Estética" loading="lazy" decoding="async">
-          <span class="service-modern-icon" aria-hidden="true">✧</span>
+          <span class="service-modern-badge">Estética</span>
         </div>
         <div class="service-modern-body">
-          <div class="service-modern-top">
-            <h3>Estética</h3>
-          </div>
+          <h3>Estética</h3>
           <p>Cuidados faciais e momentos de relaxamento para você.</p>
-          <div class="service-modern-price">A partir de R$ 120</div>
+          <div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> 60 min</div>
+          <div class="service-modern-footer">
+            <div class="service-modern-price">R$ 120,00</div>
+            <button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button>
+          </div>
         </div>
-        <span class="service-modern-arrow" aria-hidden="true">›</span>
       </article>
 
     </div>
@@ -1619,6 +2377,173 @@ function toggleTheme(){
   applyTheme(current==="dark" ? "light" : "dark");
 }
 applyTheme("light");
+
+/* Autenticação: login / cadastro / recuperar senha */
+let authRole="cliente";
+function toggleRequired(container,isRequired){
+  if(!container)return;
+  container.querySelectorAll("input").forEach(inp=>{
+    if(isRequired) inp.setAttribute("required","");
+    else inp.removeAttribute("required");
+  });
+}
+function selectRole(btn){
+  document.querySelectorAll(".auth-role-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  authRole=btn.dataset.role;
+  const pairs=[["fieldsCliente","fieldsProfissional"],["loginCliente","loginProfissional"],["forgotCliente","forgotProfissional"]];
+  pairs.forEach(([cliId,profId])=>{
+    const cli=document.getElementById(cliId);
+    const prof=document.getElementById(profId);
+    if(cli && prof){
+      const showCli = authRole==="cliente";
+      cli.style.display = showCli ? "block" : "none";
+      prof.style.display = showCli ? "none" : "block";
+      toggleRequired(cli, showCli);
+      toggleRequired(prof, !showCli);
+    }
+  });
+}
+function showAuth(view){
+  document.querySelectorAll(".auth-view").forEach(v=>v.style.display="none");
+  const map={login:"authLogin",signup:"authSignup",forgot:"authForgot"};
+  document.getElementById(map[view]).style.display="block";
+  document.querySelector(".auth-panel-form").scrollTop=0;
+}
+function onlyDigits(v){return v.replace(/\D/g,"")}
+function maskCPF(input){
+  let v=onlyDigits(input.value).slice(0,11);
+  v=v.replace(/(\d{3})(\d)/,"$1.$2");
+  v=v.replace(/(\d{3})(\d)/,"$1.$2");
+  v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+  input.value=v;
+}
+function maskCpfCnpj(input){
+  let v=onlyDigits(input.value).slice(0,14);
+  if(v.length<=11){
+    v=v.replace(/(\d{3})(\d)/,"$1.$2");
+    v=v.replace(/(\d{3})(\d)/,"$1.$2");
+    v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+  }else{
+    v=v.replace(/(\d{2})(\d)/,"$1.$2");
+    v=v.replace(/(\d{3})(\d)/,"$1.$2");
+    v=v.replace(/(\d{3})(\d)/,"$1/$2");
+    v=v.replace(/(\d{4})(\d{1,2})$/,"$1-$2");
+  }
+  input.value=v;
+}
+function maskPhone(input){
+  let v=onlyDigits(input.value).slice(0,11);
+  if(v.length>10){
+    v=v.replace(/(\d{2})(\d{5})(\d{0,4})/,"($1) $2-$3");
+  }else if(v.length>5){
+    v=v.replace(/(\d{2})(\d{4})(\d{0,4})/,"($1) $2-$3");
+  }else if(v.length>2){
+    v=v.replace(/(\d{2})(\d{0,5})/,"($1) $2");
+  }else if(v.length>0){
+    v=v.replace(/(\d{0,2})/,"($1");
+  }
+  input.value=v.trim();
+}
+function doAuth(e,kind){
+  e.preventDefault();
+  if(kind==="login"){
+    if(authRole==="cliente"){ showSalonSearch(); } else { enterApp(); }
+  }else if(kind==="signup"){
+    const activeFieldset=document.getElementById(authRole==="cliente"?"fieldsCliente":"fieldsProfissional");
+    const pass=activeFieldset.querySelector(".auth-pass").value;
+    const confirm=activeFieldset.querySelector(".auth-pass-confirm").value;
+    if(pass!==confirm){
+      alert("As senhas não coincidem. Verifique e tente novamente.");
+      return false;
+    }
+    alert("Conta criada como "+(authRole==="cliente"?"Cliente":"Profissional")+"! Em uma versão conectada a um backend, você entraria automaticamente.");
+    if(authRole==="cliente"){ showSalonSearch(); } else { enterApp(); }
+  }else if(kind==="forgot"){
+    const form=document.getElementById("authForgot").querySelector("form");
+    const pass=form.querySelector(".auth-pass").value;
+    const confirm=form.querySelector(".auth-pass-confirm").value;
+    if(pass!==confirm){
+      alert("As senhas não coincidem. Verifique e tente novamente.");
+      return false;
+    }
+    alert("Senha redefinida com sucesso! Faça login com sua nova senha.");
+    showAuth("login");
+  }
+  return false;
+}
+function enterApp(){
+  document.getElementById("authScreen").style.display="none";
+  const salonScreen=document.getElementById("salonScreen");
+  if(salonScreen) salonScreen.style.display="none";
+  showHome();
+}
+selectRole(document.querySelector('.auth-role-btn[data-role="cliente"]'));
+</script>
+
+<script>
+/* Busca de salão: exibida para o cliente logo após entrar/cadastrar */
+function showSalonSearch(){
+  document.getElementById("authScreen").style.display="none";
+  const screen=document.getElementById("salonScreen");
+  screen.style.display="flex";
+  const input=document.getElementById("salonSearchInput");
+  if(input) input.value="";
+  document.querySelectorAll("#salonFilters .salon-filter").forEach(b=>{
+    b.classList.remove("active");
+    b.setAttribute("aria-pressed","false");
+  });
+  const allBtn=document.querySelector('#salonFilters .salon-filter[data-filter="all"]');
+  if(allBtn){allBtn.classList.add("active");allBtn.setAttribute("aria-pressed","true");}
+  document.querySelectorAll(".salon-card-item").forEach(c=>c.classList.remove("is-selected"));
+  filterSalons();
+  const body=screen.querySelector(".salon-body");
+  if(body) body.scrollTop=0;
+}
+function filterSalons(){
+  const q=(document.getElementById("salonSearchInput").value||"").trim().toLowerCase();
+  const activeBtn=document.querySelector("#salonFilters .salon-filter.active");
+  const cat=activeBtn ? activeBtn.dataset.filter : "all";
+  const cards=document.querySelectorAll(".salon-card-item");
+  let visible=0;
+  cards.forEach(card=>{
+    const text=card.dataset.search || "";
+    const cats=(card.dataset.cat || "").split(" ");
+    const matchesText=!q || text.includes(q);
+    const matchesCat=cat==="all" || cats.includes(cat);
+    const show=matchesText && matchesCat;
+    card.classList.toggle("is-hidden", !show);
+    if(show) visible++;
+  });
+  const countEl=document.getElementById("salonCount");
+  if(countEl) countEl.textContent=visible+(visible===1 ? " salão encontrado" : " salões encontrados");
+  const emptyEl=document.getElementById("salonEmpty");
+  if(emptyEl) emptyEl.style.display=visible===0 ? "block" : "none";
+}
+document.querySelectorAll("#salonFilters .salon-filter").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll("#salonFilters .salon-filter").forEach(b=>{
+      b.classList.remove("active");
+      b.setAttribute("aria-pressed","false");
+    });
+    btn.classList.add("active");
+    btn.setAttribute("aria-pressed","true");
+    filterSalons();
+  });
+});
+function chooseSalon(el){
+  if(!el || el.classList.contains("is-selected")) return;
+  document.querySelectorAll(".salon-card-item").forEach(c=>c.classList.remove("is-selected"));
+  el.classList.add("is-selected");
+  setTimeout(()=>{
+    document.getElementById("salonScreen").style.display="none";
+    enterApp();
+  }, 320);
+}
+function skipSalonSearch(){
+  document.getElementById("salonScreen").style.display="none";
+  enterApp();
+}
 </script>
 
 <script>
