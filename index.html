@@ -1557,6 +1557,18 @@ button.notification.theme-toggle{
 }
 
 /* ===== AUTENTICAÇÃO: Login / Cadastro / Recuperar senha ===== */
+.auth-msg{
+  display:none;
+  font-size:11px;
+  font-weight:600;
+  padding:10px 12px;
+  border-radius:10px;
+  margin:2px 0 14px;
+}
+.auth-msg.show{display:block}
+.auth-msg.error{background:var(--danger-soft);color:var(--danger)}
+.auth-msg.success{background:var(--success-soft);color:var(--success)}
+.auth-submit[disabled]{opacity:.6;cursor:default}
 .auth-screen{
   position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;
   display:flex;flex-direction:column;
@@ -2931,7 +2943,146 @@ button.notification.theme-toggle{
   #painelScreen .new-btn{margin-left:0}
   #painelScreen .rank-bar-wrap{display:none}
 }
+
+/* ══════════════════════════ MODO DE EDIÇÃO — página do salão (home) ══════════════════════════ */
+.editable-block{position:relative}
+.edit-pencil-btn{
+  display:none;
+  position:absolute;top:10px;right:10px;z-index:3;
+  width:32px;height:32px;border-radius:50%;
+  align-items:center;justify-content:center;
+  background:var(--black2);color:#fff;
+  border:2px solid var(--white);
+  font-size:14px;cursor:pointer;
+  box-shadow:var(--shadow-sm);
+}
+.edit-pencil-btn-sm{width:26px;height:26px;font-size:11px;top:6px;right:6px}
+.is-editing .edit-pencil-btn{display:flex}
+.is-editing .editable-block{outline:2px dashed var(--pink);outline-offset:3px;border-radius:var(--radius)}
+
+.admin-toolbar{
+  background:var(--black2);color:#fff;
+  border-radius:var(--radius);
+  padding:12px 14px;margin-bottom:14px;
+}
+.admin-toolbar-label{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--pink2);margin-bottom:8px}
+.admin-toolbar-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px}
+.admin-toolbar-chips::-webkit-scrollbar{display:none}
+.admin-toolbar-chips button{
+  flex:none;white-space:nowrap;
+  background:rgba(255,255,255,.12);color:#fff;
+  border:0;border-radius:999px;
+  padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;
+}
+.admin-toolbar-chips button:hover{background:var(--pink);color:#fff}
+
+.edit-pencil-link{cursor:pointer}
+
+/* Modal genérico de edição */
+.edit-modal-overlay{
+  position:fixed;inset:0;z-index:10000;
+  background:rgba(20,14,20,.5);
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:0;
+}
+@media(min-width:640px){.edit-modal-overlay{align-items:center;padding:20px}}
+.edit-modal{
+  background:var(--white);color:var(--text);
+  width:100%;max-width:480px;max-height:88vh;
+  border-radius:22px 22px 0 0;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+@media(min-width:640px){.edit-modal{border-radius:var(--radius)}}
+.edit-modal-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;border-bottom:1px solid var(--border);flex:none;
+}
+.edit-modal-head h3{margin:0;font-size:16px;font-weight:800}
+.edit-modal-head button{background:var(--chip);border:0;width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;color:var(--text)}
+.edit-modal-body{padding:18px 20px;overflow-y:auto;flex:1 1 auto}
+.edit-modal-actions{
+  display:flex;gap:10px;padding:16px 20px;border-top:1px solid var(--border);flex:none;
+}
+.edit-modal-cancel,.edit-modal-save{
+  flex:1;padding:13px;border-radius:14px;font-size:14px;font-weight:700;border:0;cursor:pointer;
+}
+.edit-modal-cancel{background:var(--chip);color:var(--text)}
+.edit-modal-save{background:var(--black2);color:#fff}
+.edit-modal-save[disabled]{opacity:.6;cursor:default}
+.edit-modal-msg{font-size:12px;font-weight:600;padding:8px 10px;border-radius:10px;margin-bottom:10px;display:none}
+.edit-modal-msg.show{display:block}
+.edit-modal-msg.error{background:var(--danger-soft);color:var(--danger)}
+.edit-modal-msg.success{background:var(--success-soft);color:var(--success)}
+
+.edit-field-label{display:block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gray);margin:14px 0 6px}
+.img-upload-row{display:flex;gap:12px;align-items:center}
+.img-upload-preview{width:64px;height:64px;border-radius:12px;object-fit:cover;background:var(--chip);flex:none}
+.img-upload-btn{display:inline-block;padding:9px 14px;border-radius:10px;background:var(--chip);color:var(--text);font-size:12px;font-weight:700;cursor:pointer}
+.img-upload-btn:hover{background:var(--border)}
+.img-upload-hint{display:block;font-size:10px;color:var(--gray);margin-top:6px}
+.edit-field-label:first-child{margin-top:0}
+.edit-input,.edit-textarea,.edit-select{
+  width:100%;background:var(--input);border:1px solid var(--border);
+  border-radius:12px;padding:12px 14px;font-size:14px;color:var(--text);font-family:inherit;
+}
+.edit-textarea{min-height:80px;resize:vertical}
+.edit-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 0 10px}
+.edit-toggle-row span{font-size:13px;font-weight:600}
+.edit-switch{position:relative;width:42px;height:24px;flex:none}
+.edit-switch input{opacity:0;width:100%;height:100%;margin:0;cursor:pointer;position:relative;z-index:1}
+.edit-switch-track{position:absolute;inset:0;background:var(--border);border-radius:999px;transition:.15s}
+.edit-switch-thumb{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:.15s}
+.edit-switch input:checked ~ .edit-switch-track{background:var(--pink)}
+.edit-switch input:checked ~ .edit-switch-thumb{transform:translateX(18px)}
+
+.edit-hours-row{display:grid;grid-template-columns:64px 1fr auto auto;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)}
+.edit-hours-row:last-child{border-bottom:0}
+.edit-hours-row strong{font-size:12px}
+.edit-hours-row input[type="time"]{width:100%;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:7px 6px;font-size:12px;font-family:inherit;color:var(--text)}
+.edit-hours-row .edit-switch{width:36px;height:21px}
+.edit-hours-row .edit-switch-thumb{width:15px;height:15px}
+.edit-hours-row input:checked ~ .edit-switch-thumb{transform:translateX(15px)}
+.edit-hours-closed input[type="time"]{opacity:.35;pointer-events:none}
+
+/* Gerenciador de listas (equipe / serviços) */
+.list-mgr-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.list-mgr-item{
+  display:flex;align-items:center;gap:12px;
+  background:var(--light);border-radius:14px;padding:10px 12px;
+}
+.list-mgr-item img{width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none;background:var(--chip)}
+.list-mgr-item-avatar{width:44px;height:44px;border-radius:50%;background:var(--black2);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex:none}
+.list-mgr-item-info{flex:1;min-width:0}
+.list-mgr-item-info strong{display:block;font-size:13px}
+.list-mgr-item-info span{display:block;font-size:11px;color:var(--gray)}
+.list-mgr-item-actions{display:flex;gap:6px;flex:none}
+.list-mgr-item-actions button{
+  width:30px;height:30px;border-radius:50%;border:0;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.list-mgr-edit-btn{background:var(--chip);color:var(--text)}
+.list-mgr-del-btn{background:var(--danger-soft);color:var(--danger)}
+.list-mgr-add-btn{
+  width:100%;padding:13px;border-radius:14px;border:1.5px dashed var(--border);
+  background:none;color:var(--gray);font-size:13px;font-weight:700;cursor:pointer;
+}
+.list-mgr-add-btn:hover{border-color:var(--pink);color:var(--pink)}
+.list-mgr-empty{text-align:center;color:var(--gray);font-size:13px;padding:20px 0}
+.edit-form-back{background:none;border:0;color:var(--gray);font-size:12px;font-weight:700;cursor:pointer;padding:0 0 12px;display:flex;align-items:center;gap:4px}
 </style>
+
+
+<!-- Supabase: SDK do cliente + configuração de conexão -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+  // Credenciais públicas do projeto Supabase (a chave "publishable/anon" é segura
+  // para ficar no front-end). Usamos apenas o banco de dados (via funções RPC) —
+  // não o Supabase Auth, já que este projeto não usa e-mail.
+  const SUPABASE_URL = "https://yaqgwyjeowtmyfnchvem.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_W97Qr6aCNTk0Td7U9ofZkw_5Eg_3uht";
+  const sbClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
 </head>
 
 <body>
@@ -2967,28 +3118,34 @@ button.notification.theme-toggle{
       <div class="auth-view" id="authLogin">
         <h2>Bem-vinda de volta</h2>
         <p class="auth-sub">Entre com sua conta para continuar.</p>
+        <div class="auth-msg" id="loginMsg"></div>
         <form onsubmit="return doAuth(event,'login')">
 
           <div id="loginCliente">
             <label class="auth-label">CPF</label>
-            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
+            <input class="auth-input" id="loginClienteCpf" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
           </div>
           <div id="loginProfissional" style="display:none">
             <label class="auth-label">CPF/CNPJ</label>
-            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
+            <input class="auth-input" id="loginProfCpfCnpj" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
           </div>
 
           <label class="auth-label">SENHA</label>
-          <input class="auth-input" type="password" placeholder="••••••••" required>
+          <div class="profile-pass-wrap">
+            <input class="auth-input" id="loginPassword" type="password" placeholder="••••••••" required>
+            <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
           <div class="auth-row">
             <label class="auth-check">
-              <input type="checkbox" checked>
+              <input type="checkbox" id="loginKeepConnected" checked>
               <span class="box"></span>
               Manter conectado
             </label>
             <a class="auth-forgot" onclick="showAuth('forgot')">Esqueci minha senha</a>
           </div>
-          <button type="submit" class="auth-submit">Entrar →</button>
+          <button type="submit" class="auth-submit" id="loginSubmitBtn">Entrar →</button>
         </form>
         <div class="auth-switch">Ainda não tem conta? <a onclick="showAuth('signup')">Criar conta</a></div>
       </div>
@@ -2998,49 +3155,70 @@ button.notification.theme-toggle{
         <button class="auth-back" onclick="showAuth('login')" aria-label="Voltar">←</button>
         <h2>Criar conta</h2>
         <p class="auth-sub">Leva menos de um minuto.</p>
+        <div class="auth-msg" id="signupMsg"></div>
         <form onsubmit="return doAuth(event,'signup')">
 
           <!-- CAMPOS: CLIENTE -->
           <div id="fieldsCliente">
             <label class="auth-label">NOME</label>
-            <input class="auth-input" type="text" placeholder="Seu nome completo" required>
+            <input class="auth-input" id="signupClienteNome" type="text" placeholder="Seu nome completo" required>
             <label class="auth-label">CPF</label>
-            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
+            <input class="auth-input" id="signupClienteCpf" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" oninput="maskCPF(this)" required>
             <label class="auth-label">WHATSAPP</label>
-            <input class="auth-input" type="tel" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)" required>
+            <input class="auth-input" id="signupClienteWhatsapp" type="tel" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)" required>
             <label class="auth-label">SENHA</label>
-            <input class="auth-input auth-pass" type="password" placeholder="Crie uma senha" required>
+            <div class="profile-pass-wrap">
+              <input class="auth-input auth-pass" id="signupClienteSenha" type="password" placeholder="Crie uma senha" required>
+              <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
             <label class="auth-label">CONFIRMAR SENHA</label>
-            <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a senha" required>
+            <div class="profile-pass-wrap">
+              <input class="auth-input auth-pass-confirm" id="signupClienteSenhaConfirm" type="password" placeholder="Repita a senha" required>
+              <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
           </div>
 
           <!-- CAMPOS: PROFISSIONAL -->
           <div id="fieldsProfissional" style="display:none">
             <label class="auth-label">NOME DO SALÃO</label>
-            <input class="auth-input" type="text" placeholder="Nome do seu salão" required>
+            <input class="auth-input" id="signupProfNomeSalao" type="text" placeholder="Nome do seu salão" required>
             <label class="auth-label">NOME DO RESPONSÁVEL</label>
-            <input class="auth-input" type="text" placeholder="Seu nome completo" required>
+            <input class="auth-input" id="signupProfNomeResponsavel" type="text" placeholder="Seu nome completo" required>
             <label class="auth-label">CPF/CNPJ</label>
-            <input class="auth-input" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
+            <input class="auth-input" id="signupProfCpfCnpj" type="text" inputmode="numeric" placeholder="000.000.000-00" maxlength="18" oninput="maskCpfCnpj(this)" required>
             <label class="auth-label">WHATSAPP</label>
-            <input class="auth-input" type="tel" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)" required>
+            <input class="auth-input" id="signupProfWhatsapp" type="tel" placeholder="(11) 99999-9999" maxlength="15" oninput="maskPhone(this)" required>
             <label class="auth-label">ENDEREÇO</label>
-            <input class="auth-input" type="text" placeholder="Rua, número, bairro, cidade" required>
+            <input class="auth-input" id="signupProfEndereco" type="text" placeholder="Rua, número, bairro, cidade" required>
             <label class="auth-label">SENHA</label>
-            <input class="auth-input auth-pass" type="password" placeholder="Crie uma senha" required>
+            <div class="profile-pass-wrap">
+              <input class="auth-input auth-pass" id="signupProfSenha" type="password" placeholder="Crie uma senha" required>
+              <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
             <label class="auth-label">CONFIRMAR SENHA</label>
-            <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a senha" required>
+            <div class="profile-pass-wrap">
+              <input class="auth-input auth-pass-confirm" id="signupProfSenhaConfirm" type="password" placeholder="Repita a senha" required>
+              <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
           </div>
 
           <div class="auth-row">
             <label class="auth-check">
-              <input type="checkbox" checked>
+              <input type="checkbox" id="signupKeepConnected" checked>
               <span class="box"></span>
               Manter conectado
             </label>
           </div>
 
-          <button type="submit" class="auth-submit">Criar conta →</button>
+          <button type="submit" class="auth-submit" id="signupSubmitBtn">Criar conta →</button>
         </form>
         <div class="auth-switch">Já tem conta? <a onclick="showAuth('login')">Entrar</a></div>
       </div>
@@ -3062,9 +3240,19 @@ button.notification.theme-toggle{
           </div>
 
           <label class="auth-label">DIGITAR NOVA SENHA</label>
-          <input class="auth-input auth-pass" type="password" placeholder="Nova senha" required>
+          <div class="profile-pass-wrap">
+            <input class="auth-input auth-pass" type="password" placeholder="Nova senha" required>
+            <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
           <label class="auth-label">REPETIR NOVA SENHA</label>
-          <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a nova senha" required>
+          <div class="profile-pass-wrap">
+            <input class="auth-input auth-pass-confirm" type="password" placeholder="Repita a nova senha" required>
+            <button type="button" class="profile-pass-toggle" onclick="togglePassVisibility(this)" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
 
           <button type="submit" class="auth-submit">Redefinir senha →</button>
         </form>
@@ -4214,7 +4402,7 @@ button.notification.theme-toggle{
             <span>Mais procurados</span>
           </div>
 
-          <button type="button" class="home-salon-search" onclick="showSalonSearch(true)" aria-label="Buscar salão">
+          <button type="button" class="home-salon-search" id="homeSalonSearchBtn" onclick="showSalonSearch(true)" aria-label="Buscar salão">
             <svg class="search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
             <span>Buscar outro salão</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
@@ -4223,59 +4411,75 @@ button.notification.theme-toggle{
 
         <div class="home">
 
-          <div class="salon-note">
-            <span class="salon-note-ic">✦</span>
-            <span class="salon-note-text"><strong>Aviso do salão</strong>Semana da Noiva: penteados e maquiagem com 20% off até 30/08. Vagas limitadas — agende pelo app.</span>
+          <div class="admin-toolbar" id="adminToolbar" style="display:none">
+            <span class="admin-toolbar-label">Editando sua página</span>
+            <div class="admin-toolbar-chips">
+              <button type="button" data-edit="banner">🖼️ Banner</button>
+              <button type="button" data-edit="aviso">📣 Aviso</button>
+              <button type="button" data-edit="sobre">ℹ️ Sobre</button>
+              <button type="button" data-edit="horarios">🕐 Horários</button>
+              <button type="button" data-edit="equipe">👥 Equipe</button>
+              <button type="button" data-edit="servicos">💼 Serviços</button>
+            </div>
           </div>
 
-          <div class="feature">
-            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=900&q=85" alt="Cuidado de cabelo">
+          <div class="salon-note editable-block" id="salonNoteBox">
+            <span class="salon-note-ic">✦</span>
+            <span class="salon-note-text" id="salonNoteText"><strong>Aviso do salão</strong>Semana da Noiva: penteados e maquiagem com 20% off até 30/08. Vagas limitadas — agende pelo app.</span>
+            <button type="button" class="edit-pencil-btn" data-edit="aviso" aria-label="Editar aviso do salão">✎</button>
+          </div>
+
+          <div class="feature editable-block" id="featureBox">
+            <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=900&q=85" alt="Cuidado de cabelo" id="bannerImg">
             <div class="feature-info">
-              <span class="feature-tag">EXPERIÊNCIA BELLA</span>
-              <h2>Beleza com leveza.</h2>
-              <p>Cuidados personalizados para o seu momento.</p>
+              <span class="feature-tag" id="bannerTag">EXPERIÊNCIA BELLA</span>
+              <h2 id="bannerTitulo">Beleza com leveza.</h2>
+              <p id="bannerSubtitulo">Cuidados personalizados para o seu momento.</p>
             </div>
+            <button type="button" class="edit-pencil-btn" data-edit="banner" aria-label="Editar banner">✎</button>
           </div>
 
           <div class="section-title">
             <h2>Sobre o salão</h2>
           </div>
 
-          <div class="salon-info">
+          <div class="salon-info editable-block" id="salonInfoBox">
             <div class="salon-info-head">
-              <h3>Beleza no Tempo</h3>
+              <h3 id="salonNomeDisplay">Beleza no Tempo</h3>
               <span class="salon-info-rating">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>
                 4.9
               </span>
             </div>
-            <p class="salon-info-bio">Um espaço acolhedor para cabelo, unhas e estética, com atendimento personalizado e produtos selecionados a dedo — feito para você se sentir em casa.</p>
+            <p class="salon-info-bio" id="salonBioDisplay">Um espaço acolhedor para cabelo, unhas e estética, com atendimento personalizado e produtos selecionados a dedo — feito para você se sentir em casa.</p>
             <div class="salon-info-grid">
               <div class="salon-info-item">
                 <span class="ic">📍</span>
-                <div><strong>Rua das Flores, 2828</strong><span>Sala 2 • Jardim das Rosas</span></div>
+                <div><strong id="salonEndereco1">Rua das Flores, 2828</strong><span id="salonEndereco2">Sala 2 • Jardim das Rosas</span></div>
               </div>
-              <div class="salon-info-item">
+              <div class="salon-info-item" id="salonHorarioItem" style="position:relative">
                 <span class="ic">🕐</span>
-                <div><strong>Hoje: 9h às 19h</strong><span>Segunda a sábado</span></div>
+                <div><strong id="salonHorario1">Hoje: 9h às 19h</strong><span id="salonHorario2">Segunda a sábado</span></div>
+                <button type="button" class="edit-pencil-btn edit-pencil-btn-sm" data-edit="horarios" aria-label="Editar horários de funcionamento">✎</button>
               </div>
               <div class="salon-info-item">
                 <span class="ic">📞</span>
-                <div><strong>(11) 98888-4321</strong><span>WhatsApp disponível</span></div>
+                <div><strong id="salonTelefone1">(11) 98888-4321</strong><span>WhatsApp disponível</span></div>
               </div>
               <div class="salon-info-item">
                 <span class="ic">💳</span>
-                <div><strong>Pix, cartão e dinheiro</strong><span>Parcelamento no cartão</span></div>
+                <div><strong id="salonPagamento1">Pix, cartão e dinheiro</strong><span>Parcelamento no cartão</span></div>
               </div>
             </div>
             <div class="salon-social">
-              <button type="button" aria-label="Instagram do salão">
+              <button type="button" id="salonInstagramBtn" aria-label="Instagram do salão">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg>
               </button>
-              <button type="button" aria-label="WhatsApp do salão">
+              <button type="button" id="salonWhatsappBtn" aria-label="WhatsApp do salão">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.4-4.2A8 8 0 1 1 9 18.6L4 20Z"/><path d="M9 10.5c.4 2 2.1 3.6 4 4"/></svg>
               </button>
             </div>
+            <button type="button" class="edit-pencil-btn" data-edit="sobre" aria-label="Editar informações do salão">✎</button>
           </div>
 
           <div class="section-title">
@@ -4339,7 +4543,7 @@ button.notification.theme-toggle{
             <h2>Nossa equipe</h2>
           </div>
 
-          <div class="team-row">
+          <div class="team-row" id="teamRow">
             <div class="team-card">
               <div class="team-avatar">AP</div>
               <strong>Ana Paula</strong>
@@ -4387,7 +4591,7 @@ button.notification.theme-toggle{
             <a href="#" onclick="showServices();return false">EXPLORAR</a>
           </div>
 
-          <div class="services-row">
+          <div class="services-row" id="servicesRowHome">
             <article class="service">
               <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=500&q=80" alt="">
               <strong>Hair Styling</strong><span>R$ 90+</span>
@@ -5315,33 +5519,159 @@ function maskPhone(input){
   }
   input.value=v.trim();
 }
-function doAuth(e,kind){
+/* ---------- Integração com o banco (login / cadastro) ----------
+   Sem e-mail: o Supabase Auth exige um e-mail real (ele valida o
+   domínio para reduzir bounce rate, por isso o e-mail "fake" foi
+   rejeitado). Como este projeto não usa e-mail, a autenticação é
+   feita por conta própria: CPF/CNPJ + senha, com a senha guardada
+   como hash (bcrypt, via pgcrypto) direto nas tabelas "clientes" e
+   "saloes". Todo o acesso a essas tabelas passa por funções do
+   banco (RPC) — não existe leitura/escrita direta pelo cliente,
+   então a senha em texto puro nunca fica exposta nem sequer trafega
+   de volta pro navegador. Veja schema_supabase.sql. */
+
+// Sessão fica só em memória (não usamos localStorage/sessionStorage
+// aqui) — dura enquanto a página estiver aberta.
+let currentSession=null;
+
+function showAuthMsg(view,text,isError){
+  const el=document.getElementById(view+"Msg");
+  if(!el) return;
+  el.textContent=text;
+  el.classList.remove("error","success");
+  el.classList.add("show", isError?"error":"success");
+}
+function clearAuthMsg(view){
+  const el=document.getElementById(view+"Msg");
+  if(!el) return;
+  el.classList.remove("show","error","success");
+  el.textContent="";
+}
+function setBtnLoading(btn,loading,textLoading,textDefault){
+  if(!btn) return;
+  btn.disabled=loading;
+  btn.textContent=loading?textLoading:textDefault;
+}
+function traduzErroBanco(error){
+  const msg=(error && error.message)||"";
+  if(msg.includes("duplicate key") || msg.includes("já cadastrado")) return "Já existe uma conta com esse CPF/CNPJ.";
+  return "Não foi possível concluir. Tente novamente. ("+msg+")";
+}
+
+async function doAuth(e,kind){
   e.preventDefault();
-  if(kind==="login"){
-    if(authRole==="cliente"){ showSalonSearch(); } else { enterApp(); }
-  }else if(kind==="signup"){
-    const activeFieldset=document.getElementById(authRole==="cliente"?"fieldsCliente":"fieldsProfissional");
-    const pass=activeFieldset.querySelector(".auth-pass").value;
-    const confirm=activeFieldset.querySelector(".auth-pass-confirm").value;
-    if(pass!==confirm){
-      alert("As senhas não coincidem. Verifique e tente novamente.");
-      return false;
-    }
-    alert("Conta criada como "+(authRole==="cliente"?"Cliente":"Profissional")+"! Em uma versão conectada a um backend, você entraria automaticamente.");
-    if(authRole==="cliente"){ showSalonSearch(); } else { enterApp(); }
-  }else if(kind==="forgot"){
-    const form=document.getElementById("authForgot").querySelector("form");
-    const pass=form.querySelector(".auth-pass").value;
-    const confirm=form.querySelector(".auth-pass-confirm").value;
-    if(pass!==confirm){
-      alert("As senhas não coincidem. Verifique e tente novamente.");
-      return false;
-    }
-    alert("Senha redefinida com sucesso! Faça login com sua nova senha.");
-    showAuth("login");
+  if(kind==="login") return await handleLogin();
+  if(kind==="signup") return await handleSignup();
+  if(kind==="forgot") return handleForgotMock();
+  return false;
+}
+
+async function handleLogin(){
+  clearAuthMsg("login");
+  const doc=onlyDigits((authRole==="cliente"
+    ? document.getElementById("loginClienteCpf")
+    : document.getElementById("loginProfCpfCnpj")).value);
+  const senha=document.getElementById("loginPassword").value;
+  if(doc.length<11){ showAuthMsg("login","Informe um CPF/CNPJ válido.",true); return false; }
+
+  const btn=document.getElementById("loginSubmitBtn");
+  setBtnLoading(btn,true,"Entrando...","Entrar →");
+
+  const rpcName=authRole==="cliente" ? "login_cliente" : "login_salao";
+  const params=authRole==="cliente"
+    ? { p_cpf: doc, p_senha: senha }
+    : { p_cpf_cnpj: doc, p_senha: senha };
+  const { data, error } = await sbClient.rpc(rpcName, params);
+
+  setBtnLoading(btn,false,"Entrando...","Entrar →");
+
+  if(error){ showAuthMsg("login",traduzErroBanco(error),true); return false; }
+  if(!data || data.length===0){ showAuthMsg("login","CPF/CNPJ ou senha incorretos.",true); return false; }
+
+  currentSession={ role: authRole==="cliente" ? "cliente" : "salao", ...data[0] };
+  const loginKeep=document.getElementById("loginKeepConnected");
+  persistSession(!loginKeep || loginKeep.checked);
+  if(authRole==="cliente"){ updateAdminUI(); showSalonSearch(); } else { await loadSalaoHome(); enterApp(); }
+  return false;
+}
+
+async function handleSignup(){
+  clearAuthMsg("signup");
+  const btn=document.getElementById("signupSubmitBtn");
+
+  if(authRole==="cliente"){
+    const nome=document.getElementById("signupClienteNome").value.trim();
+    const cpf=onlyDigits(document.getElementById("signupClienteCpf").value);
+    const whatsapp=onlyDigits(document.getElementById("signupClienteWhatsapp").value);
+    const senha=document.getElementById("signupClienteSenha").value;
+    const confirmSenha=document.getElementById("signupClienteSenhaConfirm").value;
+
+    if(cpf.length!==11){ showAuthMsg("signup","Informe um CPF válido.",true); return false; }
+    if(senha!==confirmSenha){ showAuthMsg("signup","As senhas não coincidem.",true); return false; }
+    if(senha.length<6){ showAuthMsg("signup","A senha deve ter pelo menos 6 caracteres.",true); return false; }
+
+    setBtnLoading(btn,true,"Criando conta...","Criar conta →");
+    const { data, error } = await sbClient.rpc("cadastrar_cliente", {
+      p_nome: nome, p_cpf: cpf, p_whatsapp: whatsapp, p_senha: senha
+    });
+    setBtnLoading(btn,false,"Criando conta...","Criar conta →");
+    if(error){ showAuthMsg("signup",traduzErroBanco(error),true); return false; }
+
+    const row=data[0];
+    currentSession={ role:"cliente", id:row.id, token:row.token, nome, whatsapp };
+    const signupKeep1=document.getElementById("signupKeepConnected");
+    persistSession(!signupKeep1 || signupKeep1.checked);
+    updateAdminUI();
+    showSalonSearch();
+
+  } else {
+    const nomeSalao=document.getElementById("signupProfNomeSalao").value.trim();
+    const nomeResponsavel=document.getElementById("signupProfNomeResponsavel").value.trim();
+    const cpfCnpj=onlyDigits(document.getElementById("signupProfCpfCnpj").value);
+    const whatsapp=onlyDigits(document.getElementById("signupProfWhatsapp").value);
+    const endereco=document.getElementById("signupProfEndereco").value.trim();
+    const senha=document.getElementById("signupProfSenha").value;
+    const confirmSenha=document.getElementById("signupProfSenhaConfirm").value;
+
+    if(cpfCnpj.length!==11 && cpfCnpj.length!==14){ showAuthMsg("signup","Informe um CPF/CNPJ válido.",true); return false; }
+    if(senha!==confirmSenha){ showAuthMsg("signup","As senhas não coincidem.",true); return false; }
+    if(senha.length<6){ showAuthMsg("signup","A senha deve ter pelo menos 6 caracteres.",true); return false; }
+
+    setBtnLoading(btn,true,"Criando conta...","Criar conta →");
+    const { data, error } = await sbClient.rpc("cadastrar_salao", {
+      p_nome_salao: nomeSalao, p_nome_responsavel: nomeResponsavel,
+      p_cpf_cnpj: cpfCnpj, p_whatsapp: whatsapp, p_endereco: endereco, p_senha: senha
+    });
+    setBtnLoading(btn,false,"Criando conta...","Criar conta →");
+    if(error){ showAuthMsg("signup",traduzErroBanco(error),true); return false; }
+
+    const row=data[0];
+    currentSession={ role:"salao", id:row.id, token:row.token, nome_salao:nomeSalao, nome_responsavel:nomeResponsavel, whatsapp, endereco };
+    const signupKeep2=document.getElementById("signupKeepConnected");
+    persistSession(!signupKeep2 || signupKeep2.checked);
+    await loadSalaoHome();
+    enterApp();
   }
   return false;
 }
+
+/* A recuperação de senha ainda não está conectada ao banco: sem
+   e-mail nem telefone verificado, "esqueci minha senha" precisa de
+   um fluxo próprio (ex.: confirmação por WhatsApp) que ainda não foi
+   definido. Por enquanto o formulário permanece como simulação. */
+function handleForgotMock(){
+  const form=document.getElementById("authForgot").querySelector("form");
+  const pass=form.querySelector(".auth-pass").value;
+  const confirm=form.querySelector(".auth-pass-confirm").value;
+  if(pass!==confirm){
+    alert("As senhas não coincidem. Verifique e tente novamente.");
+    return false;
+  }
+  alert("Em breve: redefinição de senha conectada ao banco de dados.");
+  showAuth("login");
+  return false;
+}
+
 function enterApp(){
   document.getElementById("authScreen").style.display="none";
   const salonScreen=document.getElementById("salonScreen");
@@ -5350,6 +5680,7 @@ function enterApp(){
 }
 selectRole(document.querySelector('.auth-role-btn[data-role="cliente"]'));
 </script>
+
 
 <script>
 /* Busca de salão: exibida para o cliente logo após entrar/cadastrar */
@@ -5426,50 +5757,50 @@ function skipSalonSearch(){
 </script>
 
 <script>
-/* Serviços: filtro por categoria + contador dinâmico + navegação por teclado */
-(function(){
-  const filters=document.querySelectorAll(".service-filter");
+/* Serviços: filtro por categoria + contador dinâmico + navegação por teclado.
+   Vira uma função reutilizável porque, quando o salão tem serviços cadastrados
+   no banco, a lista é re-renderizada dinamicamente (ver renderServicosScreen). */
+function applyServiceFilter(value){
   const cards=document.querySelectorAll(".service-modern-card");
   const countEl=document.getElementById("servicesCount");
   const emptyEl=document.getElementById("servicesEmpty");
-
-  function applyFilter(value){
-    let visible=0;
-    cards.forEach(card=>{
-      const match=value==="all" || card.dataset.category===value;
-      card.classList.toggle("is-hidden", !match);
-      if(match) visible++;
-    });
-    if(countEl){
-      countEl.textContent=String(visible).padStart(2,"0");
-      countEl.setAttribute("aria-label", visible+(visible===1?" serviço disponível":" serviços disponíveis"));
-    }
-    if(emptyEl) emptyEl.style.display=visible===0 ? "block" : "none";
+  let visible=0;
+  cards.forEach(card=>{
+    const match=value==="all" || card.dataset.category===value;
+    card.classList.toggle("is-hidden", !match);
+    if(match) visible++;
+  });
+  if(countEl){
+    countEl.textContent=String(visible).padStart(2,"0");
+    countEl.setAttribute("aria-label", visible+(visible===1?" serviço disponível":" serviços disponíveis"));
   }
-
+  if(emptyEl) emptyEl.style.display=visible===0 ? "block" : "none";
+}
+function initServiceFilters(){
+  const filters=document.querySelectorAll(".service-filter");
   filters.forEach(btn=>{
-    btn.addEventListener("click", ()=>{
+    btn.onclick=()=>{
       filters.forEach(b=>{
         b.classList.remove("active");
         b.setAttribute("aria-pressed","false");
       });
       btn.classList.add("active");
       btn.setAttribute("aria-pressed","true");
-      applyFilter(btn.dataset.filter);
-    });
+      applyServiceFilter(btn.dataset.filter);
+    };
   });
-
-  cards.forEach(card=>{
-    card.addEventListener("keydown", e=>{
+  document.querySelectorAll(".service-modern-card").forEach(card=>{
+    card.onkeydown=e=>{
       if(e.key==="Enter" || e.key===" "){
         e.preventDefault();
         card.click();
       }
-    });
+    };
   });
-
-  applyFilter("all");
-})();
+  const activeBtn=document.querySelector(".service-filter.active");
+  applyServiceFilter(activeBtn ? activeBtn.dataset.filter : "all");
+}
+initServiceFilters();
 </script>
 
 <script>
@@ -5562,6 +5893,12 @@ function confirmDeleteAccount(){
   document.getElementById("profileDeletePass").value="";
 }
 function logoutAccount(){
+  currentSession=null;
+  salaoPerfil=null;
+  salaoEquipeCache=[];
+  salaoServicosCache=[];
+  persistSession(false);
+  updateAdminUI();
   showProfileTab("dados");
   showAuth("login");
   document.getElementById("authScreen").style.display="flex";
@@ -6177,6 +6514,581 @@ document.addEventListener('DOMContentLoaded', ()=>{
 });
 window.addEventListener('resize', ()=>{ renderCharts(); });
 
+</script>
+
+<!-- Modal genérico usado pelo modo de edição da página do salão -->
+<div class="edit-modal-overlay" id="editModalOverlay" style="display:none" onclick="if(event.target===this)closeEditModal()">
+  <div class="edit-modal">
+    <div class="edit-modal-head">
+      <h3 id="editModalTitle">Editar</h3>
+      <button type="button" onclick="closeEditModal()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="edit-modal-body" id="editModalBody"></div>
+    <div class="edit-modal-actions" id="editModalActions">
+      <button type="button" class="edit-modal-cancel" onclick="closeEditModal()">Cancelar</button>
+      <button type="button" class="edit-modal-save" id="editModalSaveBtn">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════ MODO DE EDIÇÃO — página do salão (home) ══════════════════════════
+   Só existe para quem logou como salão (currentSession.role === "salao"). O salão vê a MESMA
+   tela "home" que um cliente veria, só que com um botão de lápis que liga um modo de edição:
+   os blocos ganham contorno tracejado + um ícone de lápis, que abre um modal pra editar aquilo
+   ali. Tudo é salvo no Supabase via RPC (usando o token de sessão criado no login/cadastro) e
+   refletido na hora na tela — sem precisar recarregar a página. */
+
+let editMode=false;
+let salaoPerfil=null;
+let salaoEquipeCache=[];
+let salaoServicosCache=[];
+
+const DIAS_ORDEM=['dom','seg','ter','qua','qui','sex','sab'];
+const DIAS_DISPLAY=['seg','ter','qua','qui','sex','sab','dom'];
+const DIAS_LABEL={dom:'Dom',seg:'Seg',ter:'Ter',qua:'Qua',qui:'Qui',sex:'Sex',sab:'Sáb'};
+const DIAS_LABEL_LONGO={dom:'Domingo',seg:'Segunda',ter:'Terça',qua:'Quarta',qui:'Quinta',sex:'Sexta',sab:'Sábado'};
+
+function escapeHtml(s){
+  return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function setText(id,val){
+  const el=document.getElementById(id);
+  if(el) el.textContent = (val==null) ? '' : val;
+}
+
+/* ---------- Upload de imagem (Supabase Storage, bucket "midia-salao") ----------
+   Usado no banner e nas fotos de serviço. Cada salão sobe suas imagens dentro
+   da própria pasta (currentSession.id/...), com nome aleatório, pra não colidir
+   com as de outro salão. Ver o bloco de Storage no schema_supabase.sql. */
+function imgUploadFieldHtml(prefix, currentUrl){
+  const placeholder='https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=200&q=60';
+  return '<div class="img-upload-row">'
+    +'<img id="'+prefix+'Preview" src="'+escapeHtml(currentUrl||placeholder)+'" alt="" class="img-upload-preview">'
+    +'<div>'
+    +'<label class="img-upload-btn" for="'+prefix+'File">Escolher imagem</label>'
+    +'<input type="file" id="'+prefix+'File" accept="image/*" style="display:none" onchange="onImageFileSelected(this,\''+prefix+'Preview\')">'
+    +'<span class="img-upload-hint">JPG, PNG ou WEBP até 5MB</span>'
+    +'</div></div>';
+}
+function onImageFileSelected(input, previewId){
+  const file=input.files[0];
+  if(!file) return;
+  const preview=document.getElementById(previewId);
+  if(preview) preview.src=URL.createObjectURL(file);
+}
+async function uploadImagemSalao(file, pasta){
+  if(!file) return null;
+  const tiposPermitidos=['image/jpeg','image/png','image/webp','image/gif'];
+  if(!tiposPermitidos.includes(file.type)){
+    throw new Error('Formato não suportado. Use JPG, PNG, WEBP ou GIF.');
+  }
+  if(file.size > 5*1024*1024){
+    throw new Error('A imagem deve ter até 5MB.');
+  }
+  const ext=(file.name.split('.').pop()||'jpg').toLowerCase();
+  const caminho=currentSession.id+'/'+pasta+'/'+crypto.randomUUID()+'.'+ext;
+  const { error } = await sbClient.storage.from('midia-salao').upload(caminho, file, { upsert:false, contentType:file.type });
+  if(error) throw new Error('Não foi possível enviar a imagem: '+error.message);
+  const { data } = sbClient.storage.from('midia-salao').getPublicUrl(caminho);
+  return data.publicUrl;
+}
+
+function horarioResumoHoje(h){
+  if(!h) return '—';
+  const key=DIAS_ORDEM[new Date().getDay()];
+  const d=h[key];
+  if(!d || !d.aberto) return 'Hoje: fechado';
+  return 'Hoje: '+d.abre+' às '+d.fecha;
+}
+function horarioResumoSemana(h){
+  if(!h) return '';
+  const abertos=DIAS_DISPLAY.filter(k=>h[k] && h[k].aberto);
+  if(abertos.length===0) return 'Fechado todos os dias';
+  if(abertos.length===7) return 'Todos os dias';
+  const idxs=abertos.map(k=>DIAS_DISPLAY.indexOf(k));
+  let continuo=true;
+  for(let i=1;i<idxs.length;i++){ if(idxs[i]!==idxs[i-1]+1){continuo=false;break;} }
+  if(continuo && idxs.length>1){
+    return DIAS_LABEL_LONGO[DIAS_DISPLAY[idxs[0]]]+' a '+DIAS_LABEL_LONGO[DIAS_DISPLAY[idxs[idxs.length-1]]];
+  }
+  return abertos.map(k=>DIAS_LABEL[k]).join(', ');
+}
+
+/* ---------- Modo de edição: sempre ativo enquanto o salão estiver logado ---------- */
+function updateAdminUI(){
+  editMode = !!(currentSession && currentSession.role==='salao');
+  const homeEl=document.getElementById('homeScreen');
+  if(homeEl) homeEl.classList.toggle('is-editing', editMode);
+  const toolbar=document.getElementById('adminToolbar');
+  if(toolbar) toolbar.style.display = editMode ? 'block' : 'none';
+  const searchBtn=document.getElementById('homeSalonSearchBtn');
+  if(searchBtn) searchBtn.style.display = editMode ? 'none' : '';
+}
+document.addEventListener('click', function(e){
+  const trigger=e.target.closest('[data-edit]');
+  if(trigger){
+    e.preventDefault();
+    openSectionEditor(trigger.dataset.edit);
+  }
+});
+
+/* ---------- Carregar e renderizar os dados reais do salão ---------- */
+async function loadSalaoHome(){
+  if(!currentSession || currentSession.role!=='salao') return;
+  try{
+    const [perfilRes, equipeRes, servicosRes] = await Promise.all([
+      sbClient.rpc('carregar_perfil_salao', { p_salao_id: currentSession.id }),
+      sbClient.rpc('listar_equipe', { p_salao_id: currentSession.id }),
+      sbClient.rpc('listar_servicos', { p_salao_id: currentSession.id })
+    ]);
+    if(!perfilRes.error && perfilRes.data && perfilRes.data.length){
+      salaoPerfil=perfilRes.data[0];
+      renderSalaoPerfil();
+    }
+    if(!equipeRes.error && equipeRes.data){
+      salaoEquipeCache=equipeRes.data;
+      renderEquipeHome(salaoEquipeCache);
+    }
+    if(!servicosRes.error && servicosRes.data){
+      salaoServicosCache=servicosRes.data;
+      renderServicosHome(salaoServicosCache);
+    }
+  }catch(err){
+    console.error('Erro ao carregar dados do salão:',err);
+  }
+  updateAdminUI();
+}
+
+function renderSalaoPerfil(){
+  const p=salaoPerfil; if(!p) return;
+  const bannerImg=document.getElementById('bannerImg');
+  if(bannerImg && p.banner_url) bannerImg.src=p.banner_url;
+  setText('bannerTag',p.banner_tag);
+  setText('bannerTitulo',p.banner_titulo);
+  setText('bannerSubtitulo',p.banner_subtitulo);
+
+  const notaBox=document.getElementById('salonNoteBox');
+  const notaText=document.getElementById('salonNoteText');
+  if(notaBox && notaText){
+    notaText.innerHTML = (p.aviso_ativo && p.aviso_texto)
+      ? '<strong>Aviso do salão</strong>'+escapeHtml(p.aviso_texto)
+      : '<strong>Aviso do salão</strong>Nenhum aviso publicado no momento.';
+  }
+
+  setText('salonNomeDisplay', p.nome_salao);
+  setText('salonBioDisplay', p.bio);
+  setText('salonEndereco1', p.endereco || '—');
+  setText('salonEndereco2', p.complemento || '');
+  setText('salonHorario1', horarioResumoHoje(p.horarios));
+  setText('salonHorario2', horarioResumoSemana(p.horarios));
+  setText('salonTelefone1', p.telefone || (currentSession && currentSession.whatsapp) || '—');
+  setText('salonPagamento1', p.formas_pagamento || '—');
+
+  const igBtn=document.getElementById('salonInstagramBtn');
+  if(igBtn){
+    igBtn.style.opacity = p.instagram ? '1' : '.35';
+    igBtn.onclick=()=>{ if(p.instagram) window.open('https://instagram.com/'+p.instagram.replace('@',''),'_blank'); };
+  }
+  const waBtn=document.getElementById('salonWhatsappBtn');
+  if(waBtn){
+    const num=onlyDigits((currentSession && currentSession.whatsapp) || '');
+    waBtn.style.opacity = num ? '1' : '.35';
+    waBtn.onclick=()=>{ if(num) window.open('https://wa.me/55'+num,'_blank'); };
+  }
+}
+
+function renderEquipeHome(list){
+  const row=document.getElementById('teamRow');
+  if(!row) return;
+  if(!list.length){
+    row.innerHTML='<div class="list-mgr-empty" style="width:100%">Nenhum profissional cadastrado ainda. Toque no lápis ✎ → "Equipe" para adicionar.</div>';
+    return;
+  }
+  row.innerHTML=list.map(m=>{
+    const iniciais=(m.nome||'').trim().split(/\s+/).map(p=>p[0]).slice(0,2).join('').toUpperCase();
+    return '<div class="team-card"><div class="team-avatar">'+escapeHtml(iniciais)+'</div><strong>'+escapeHtml(m.nome)+'</strong><span>'+escapeHtml(m.especialidade||'')+'</span><span class="team-rating"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.7-5 4.6 1.4 6.6L12 17l-5.9 3.6L7.5 14l-5-4.6 6.6-.7L12 2.5Z"/></svg>'+Number(m.nota).toFixed(1)+'</span></div>';
+  }).join('');
+}
+
+function renderServicosHome(list){
+  const destaque=list.filter(s=>s.destaque);
+  const escolhidos=(destaque.length?destaque:list).slice(0,3);
+  const row=document.getElementById('servicesRowHome');
+  if(row){
+    row.innerHTML = escolhidos.length ? escolhidos.map(s=>
+      '<article class="service"><img src="'+escapeHtml(s.imagem_url||'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=500&q=80')+'" alt=""><strong>'+escapeHtml(s.nome)+'</strong><span>R$ '+Number(s.preco).toFixed(0)+'+</span></article>'
+    ).join('') : '<div class="list-mgr-empty">Nenhum serviço cadastrado ainda.</div>';
+  }
+  renderServicosScreen(list);
+}
+function renderServicosScreen(list){
+  const listEl=document.getElementById('servicesList');
+  const countEl=document.getElementById('servicesCount');
+  if(!listEl) return;
+  if(countEl) countEl.textContent=String(list.length).padStart(2,'0');
+  if(!list.length){
+    listEl.innerHTML='<div class="list-mgr-empty">Nenhum serviço cadastrado ainda. Toque no lápis ✎ → "Serviços" para adicionar o primeiro.</div>';
+    return;
+  }
+  const catLabel={cabelo:'Cabelo',unhas:'Unhas',estetica:'Estética',coloracao:'Coloração'};
+  listEl.innerHTML=list.map(s=>{
+    const img=s.imagem_url||'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=700&q=85';
+    return '<article class="service-modern-card" data-category="'+escapeHtml(s.categoria)+'" role="button" tabindex="0" aria-label="'+escapeHtml(s.nome)+', R$ '+Number(s.preco).toFixed(2)+' — toque para agendar" onclick="showBooking()">'
+      +'<div class="service-modern-image"><img src="'+escapeHtml(img)+'" alt="'+escapeHtml(s.nome)+'" loading="lazy" decoding="async"><span class="service-modern-badge">'+escapeHtml(catLabel[s.categoria]||s.categoria)+'</span></div>'
+      +'<div class="service-modern-body"><h3>'+escapeHtml(s.nome)+'</h3><p>'+escapeHtml(s.descricao||'')+'</p>'
+      +'<div class="service-modern-duration"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> '+s.duracao_min+' min</div>'
+      +'<div class="service-modern-footer"><div class="service-modern-price">R$ '+Number(s.preco).toFixed(2)+'</div><button type="button" class="service-modern-btn" onclick="event.stopPropagation();showBooking()">Agendar</button></div>'
+      +'</div></article>';
+  }).join('');
+  initServiceFilters();
+}
+
+/* ---------- Modal genérico (banner / aviso / sobre / horários) ---------- */
+function openEditModal(title, bodyHtml, onSave){
+  document.getElementById('editModalTitle').textContent=title;
+  document.getElementById('editModalBody').innerHTML='<div class="edit-modal-msg" id="editModalMsg"></div>'+bodyHtml;
+  const actions=document.getElementById('editModalActions');
+  actions.innerHTML='<button type="button" class="edit-modal-cancel" onclick="closeEditModal()">Cancelar</button><button type="button" class="edit-modal-save" id="editModalSaveBtn">Salvar</button>';
+  const saveBtn=document.getElementById('editModalSaveBtn');
+  saveBtn.onclick=async ()=>{
+    const msg=document.getElementById('editModalMsg');
+    msg.classList.remove('show','error','success'); msg.textContent='';
+    saveBtn.disabled=true; saveBtn.textContent='Salvando...';
+    try{
+      await onSave();
+      saveBtn.textContent='Salvo ✓';
+      setTimeout(closeEditModal, 500);
+    }catch(err){
+      saveBtn.disabled=false; saveBtn.textContent='Salvar';
+      msg.textContent=(err && err.message) ? err.message : 'Não foi possível salvar. Tente novamente.';
+      msg.classList.add('show','error');
+    }
+  };
+  document.getElementById('editModalOverlay').style.display='flex';
+}
+function closeEditModal(){
+  document.getElementById('editModalOverlay').style.display='none';
+}
+
+function openSectionEditor(type){
+  if(!currentSession || currentSession.role!=='salao') return;
+  if(type==='banner') return editorBanner();
+  if(type==='aviso') return editorAviso();
+  if(type==='sobre') return editorSobre();
+  if(type==='horarios') return editorHorarios();
+  if(type==='equipe') return openListManager('equipe');
+  if(type==='servicos') return openListManager('servicos');
+}
+
+function editorBanner(){
+  const p=salaoPerfil||{};
+  openEditModal('Banner de início',
+    '<label class="edit-field-label">Imagem do banner</label>'
+    +imgUploadFieldHtml('fBanner', p.banner_url)
+    +'<label class="edit-field-label">Selo (categoria pequena)</label>'
+    +'<input class="edit-input" id="fBannerTag" maxlength="40" value="'+escapeHtml(p.banner_tag||'')+'">'
+    +'<label class="edit-field-label">Título</label>'
+    +'<input class="edit-input" id="fBannerTitulo" maxlength="60" value="'+escapeHtml(p.banner_titulo||'')+'">'
+    +'<label class="edit-field-label">Subtítulo</label>'
+    +'<input class="edit-input" id="fBannerSubtitulo" maxlength="120" value="'+escapeHtml(p.banner_subtitulo||'')+'">',
+    async ()=>{
+      const tag=document.getElementById('fBannerTag').value.trim();
+      const titulo=document.getElementById('fBannerTitulo').value.trim();
+      const subtitulo=document.getElementById('fBannerSubtitulo').value.trim();
+      if(!titulo){ throw new Error('Preencha ao menos o título.'); }
+      let url=p.banner_url;
+      const arquivo=document.getElementById('fBannerFile').files[0];
+      if(arquivo){
+        url=await uploadImagemSalao(arquivo, 'banner');
+      }
+      const { error } = await sbClient.rpc('atualizar_banner_salao', {
+        p_token: currentSession.token, p_banner_url:url, p_banner_tag:tag, p_banner_titulo:titulo, p_banner_subtitulo:subtitulo
+      });
+      if(error) throw error;
+      salaoPerfil={ ...(salaoPerfil||{}), banner_url:url, banner_tag:tag, banner_titulo:titulo, banner_subtitulo:subtitulo };
+      renderSalaoPerfil();
+    }
+  );
+}
+
+function editorAviso(){
+  const p=salaoPerfil||{};
+  openEditModal('Aviso do salão',
+    '<div class="edit-toggle-row"><span>Mostrar aviso na página</span>'
+    +'<label class="edit-switch"><input type="checkbox" id="fAvisoAtivo" '+(p.aviso_ativo?'checked':'')+'><span class="edit-switch-track"></span><span class="edit-switch-thumb"></span></label></div>'
+    +'<label class="edit-field-label">Texto do aviso</label>'
+    +'<textarea class="edit-textarea" id="fAvisoTexto" maxlength="200" placeholder="Ex.: Semana da Noiva: 20% off até 30/08.">'+escapeHtml(p.aviso_texto||'')+'</textarea>',
+    async ()=>{
+      const ativo=document.getElementById('fAvisoAtivo').checked;
+      const texto=document.getElementById('fAvisoTexto').value.trim();
+      if(ativo && !texto){ throw new Error('Escreva o texto do aviso ou desative a exibição.'); }
+      const { error } = await sbClient.rpc('atualizar_aviso_salao', { p_token: currentSession.token, p_aviso_texto:texto, p_aviso_ativo:ativo });
+      if(error) throw error;
+      salaoPerfil={ ...(salaoPerfil||{}), aviso_texto:texto, aviso_ativo:ativo };
+      renderSalaoPerfil();
+    }
+  );
+}
+
+function editorSobre(){
+  const p=salaoPerfil||{};
+  openEditModal('Sobre o salão',
+    '<label class="edit-field-label">Descrição</label>'
+    +'<textarea class="edit-textarea" id="fSobreBio" maxlength="220">'+escapeHtml(p.bio||'')+'</textarea>'
+    +'<label class="edit-field-label">Endereço</label>'
+    +'<input class="edit-input" id="fSobreEndereco" value="'+escapeHtml(p.endereco||'')+'">'
+    +'<label class="edit-field-label">Complemento (sala, bairro...)</label>'
+    +'<input class="edit-input" id="fSobreComplemento" value="'+escapeHtml(p.complemento||'')+'">'
+    +'<label class="edit-field-label">Telefone para exibir</label>'
+    +'<input class="edit-input" id="fSobreTelefone" value="'+escapeHtml(p.telefone||'')+'">'
+    +'<label class="edit-field-label">Formas de pagamento</label>'
+    +'<input class="edit-input" id="fSobrePagamento" value="'+escapeHtml(p.formas_pagamento||'')+'">'
+    +'<label class="edit-field-label">Instagram (usuário, sem @)</label>'
+    +'<input class="edit-input" id="fSobreInstagram" value="'+escapeHtml((p.instagram||'').replace('@',''))+'">',
+    async ()=>{
+      const bio=document.getElementById('fSobreBio').value.trim();
+      const endereco=document.getElementById('fSobreEndereco').value.trim();
+      const complemento=document.getElementById('fSobreComplemento').value.trim();
+      const telefone=document.getElementById('fSobreTelefone').value.trim();
+      const pagamento=document.getElementById('fSobrePagamento').value.trim();
+      const instagram=document.getElementById('fSobreInstagram').value.trim();
+      if(!endereco){ throw new Error('Informe o endereço.'); }
+      const { error } = await sbClient.rpc('atualizar_info_salao', {
+        p_token: currentSession.token, p_bio:bio, p_endereco:endereco, p_complemento:complemento,
+        p_telefone:telefone, p_formas_pagamento:pagamento, p_instagram:instagram
+      });
+      if(error) throw error;
+      salaoPerfil={ ...(salaoPerfil||{}), bio, endereco, complemento, telefone, formas_pagamento:pagamento, instagram };
+      renderSalaoPerfil();
+    }
+  );
+}
+
+function editorHorarios(){
+  const h=(salaoPerfil && salaoPerfil.horarios) || {};
+  const rowsHtml=DIAS_DISPLAY.map(k=>{
+    const d=h[k] || {aberto:false,abre:'09:00',fecha:'18:00'};
+    return '<div class="edit-hours-row'+(d.aberto?'':' edit-hours-closed')+'" data-day="'+k+'">'
+      +'<strong>'+DIAS_LABEL[k]+'</strong>'
+      +'<label class="edit-switch"><input type="checkbox" class="hday-toggle" '+(d.aberto?'checked':'')+' onchange="this.closest(\'.edit-hours-row\').classList.toggle(\'edit-hours-closed\',!this.checked)"><span class="edit-switch-track"></span><span class="edit-switch-thumb"></span></label>'
+      +'<input type="time" class="hday-abre" value="'+(d.abre||'09:00')+'">'
+      +'<input type="time" class="hday-fecha" value="'+(d.fecha||'18:00')+'">'
+      +'</div>';
+  }).join('');
+  openEditModal('Horário de funcionamento', rowsHtml, async ()=>{
+    const novo={};
+    document.querySelectorAll('#editModalBody .edit-hours-row').forEach(row=>{
+      const dia=row.dataset.day;
+      novo[dia]={
+        aberto: row.querySelector('.hday-toggle').checked,
+        abre: row.querySelector('.hday-abre').value,
+        fecha: row.querySelector('.hday-fecha').value
+      };
+    });
+    const { error } = await sbClient.rpc('atualizar_horarios_salao', { p_token: currentSession.token, p_horarios: novo });
+    if(error) throw error;
+    salaoPerfil={ ...(salaoPerfil||{}), horarios:novo };
+    renderSalaoPerfil();
+  });
+}
+
+/* ---------- Gerenciador de listas: Equipe e Serviços ---------- */
+function openListManager(type){
+  document.getElementById('editModalTitle').textContent = type==='equipe' ? 'Equipe' : 'Serviços';
+  renderListManagerList(type);
+  document.getElementById('editModalOverlay').style.display='flex';
+}
+
+function renderListManagerList(type){
+  const items = type==='equipe' ? salaoEquipeCache : salaoServicosCache;
+  const body=document.getElementById('editModalBody');
+  let itemsHtml='';
+  if(!items.length){
+    itemsHtml='<div class="list-mgr-empty">Nenhum '+(type==='equipe'?'profissional':'serviço')+' cadastrado ainda.</div>';
+  } else if(type==='equipe'){
+    itemsHtml='<div class="list-mgr-items">'+items.map(it=>{
+      const iniciais=(it.nome||'').trim().split(/\s+/).map(p=>p[0]).slice(0,2).join('').toUpperCase();
+      return '<div class="list-mgr-item"><div class="list-mgr-item-avatar">'+escapeHtml(iniciais)+'</div>'
+        +'<div class="list-mgr-item-info"><strong>'+escapeHtml(it.nome)+'</strong><span>'+escapeHtml(it.especialidade||'')+' • ★'+Number(it.nota).toFixed(1)+'</span></div>'
+        +'<div class="list-mgr-item-actions"><button class="list-mgr-edit-btn" onclick="openListManagerForm(\'equipe\',\''+it.id+'\')">✎</button><button class="list-mgr-del-btn" onclick="removeListItem(\'equipe\',\''+it.id+'\')">🗑</button></div></div>';
+    }).join('')+'</div>';
+  } else {
+    itemsHtml='<div class="list-mgr-items">'+items.map(it=>{
+      const img=it.imagem_url||'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=200&q=60';
+      return '<div class="list-mgr-item"><img src="'+escapeHtml(img)+'" alt="">'
+        +'<div class="list-mgr-item-info"><strong>'+escapeHtml(it.nome)+'</strong><span>R$ '+Number(it.preco).toFixed(2)+' • '+it.duracao_min+' min'+(it.destaque?' • destaque':'')+'</span></div>'
+        +'<div class="list-mgr-item-actions"><button class="list-mgr-edit-btn" onclick="openListManagerForm(\'servicos\',\''+it.id+'\')">✎</button><button class="list-mgr-del-btn" onclick="removeListItem(\'servicos\',\''+it.id+'\')">🗑</button></div></div>';
+    }).join('')+'</div>';
+  }
+  body.innerHTML=itemsHtml+'<button type="button" class="list-mgr-add-btn" onclick="openListManagerForm(\''+type+'\',null)">+ Adicionar '+(type==='equipe'?'profissional':'serviço')+'</button>';
+
+  const actions=document.getElementById('editModalActions');
+  actions.innerHTML='<button type="button" class="edit-modal-cancel" onclick="closeEditModal()" style="flex:1">Fechar</button>';
+}
+
+function openListManagerForm(type, id){
+  const items = type==='equipe' ? salaoEquipeCache : salaoServicosCache;
+  const item = id ? items.find(i=>i.id===id) : null;
+  document.getElementById('editModalTitle').textContent = (item?'Editar ':'Novo ') + (type==='equipe'?'profissional':'serviço');
+
+  let formHtml='<button type="button" class="edit-form-back" onclick="renderListManagerList(\''+type+'\')">← voltar para a lista</button>'
+    +'<div class="edit-modal-msg" id="editModalMsg"></div>';
+
+  if(type==='equipe'){
+    formHtml+='<label class="edit-field-label">Nome</label>'
+      +'<input class="edit-input" id="fEqNome" value="'+escapeHtml(item?item.nome:'')+'">'
+      +'<label class="edit-field-label">Especialidade</label>'
+      +'<input class="edit-input" id="fEqEspecialidade" placeholder="Ex.: Cabelo & Coloração" value="'+escapeHtml(item?item.especialidade||'':'')+'">'
+      +'<label class="edit-field-label">Nota (0 a 5)</label>'
+      +'<input class="edit-input" id="fEqNota" type="number" min="0" max="5" step="0.1" value="'+(item?item.nota:5)+'">';
+  } else {
+    const cat=item?item.categoria:'cabelo';
+    formHtml+='<label class="edit-field-label">Nome do serviço</label>'
+      +'<input class="edit-input" id="fSvNome" value="'+escapeHtml(item?item.nome:'')+'">'
+      +'<label class="edit-field-label">Categoria</label>'
+      +'<select class="edit-select" id="fSvCategoria">'
+      +'<option value="cabelo"'+(cat==='cabelo'?' selected':'')+'>Cabelo</option>'
+      +'<option value="unhas"'+(cat==='unhas'?' selected':'')+'>Unhas</option>'
+      +'<option value="estetica"'+(cat==='estetica'?' selected':'')+'>Estética</option>'
+      +'<option value="coloracao"'+(cat==='coloracao'?' selected':'')+'>Coloração</option>'
+      +'</select>'
+      +'<label class="edit-field-label">Preço (R$)</label>'
+      +'<input class="edit-input" id="fSvPreco" type="number" min="0" step="0.01" value="'+(item?item.preco:'')+'">'
+      +'<label class="edit-field-label">Duração (min)</label>'
+      +'<input class="edit-input" id="fSvDuracao" type="number" min="5" step="5" value="'+(item?item.duracao_min:30)+'">'
+      +'<label class="edit-field-label">Descrição</label>'
+      +'<textarea class="edit-textarea" id="fSvDescricao">'+escapeHtml(item?item.descricao||'':'')+'</textarea>'
+      +'<label class="edit-field-label">Foto do serviço</label>'
+      +imgUploadFieldHtml('fSvImg', item?item.imagem_url:'')
+      +'<div class="edit-toggle-row"><span>Mostrar como destaque na página inicial</span>'
+      +'<label class="edit-switch"><input type="checkbox" id="fSvDestaque" '+(item&&item.destaque?'checked':'')+'><span class="edit-switch-track"></span><span class="edit-switch-thumb"></span></label></div>';
+  }
+  document.getElementById('editModalBody').innerHTML=formHtml;
+
+  const actions=document.getElementById('editModalActions');
+  actions.innerHTML='<button type="button" class="edit-modal-cancel" onclick="renderListManagerList(\''+type+'\')" style="flex:1">Cancelar</button>'
+    +'<button type="button" class="edit-modal-save" id="editModalSaveBtn" style="flex:1">Salvar</button>';
+  document.getElementById('editModalSaveBtn').onclick=()=>saveListItem(type, id);
+}
+
+async function saveListItem(type, id){
+  const saveBtn=document.getElementById('editModalSaveBtn');
+  const msg=document.getElementById('editModalMsg');
+  msg.classList.remove('show','error'); msg.textContent='';
+
+  try{
+    if(type==='equipe'){
+      const nome=document.getElementById('fEqNome').value.trim();
+      const especialidade=document.getElementById('fEqEspecialidade').value.trim();
+      const nota=parseFloat(document.getElementById('fEqNota').value)||5;
+      if(!nome){ throw new Error('Informe o nome.'); }
+      saveBtn.disabled=true; saveBtn.textContent='Salvando...';
+      const { data, error } = await sbClient.rpc('salvar_membro_equipe', {
+        p_token: currentSession.token, p_id: id, p_nome: nome, p_especialidade: especialidade, p_nota: nota
+      });
+      if(error) throw error;
+      if(id){
+        const idx=salaoEquipeCache.findIndex(i=>i.id===id);
+        if(idx>-1) salaoEquipeCache[idx]={...salaoEquipeCache[idx], nome, especialidade, nota};
+      } else {
+        salaoEquipeCache.push({ id:data, nome, especialidade, nota, ordem:salaoEquipeCache.length });
+      }
+      renderEquipeHome(salaoEquipeCache);
+    } else {
+      const nome=document.getElementById('fSvNome').value.trim();
+      const categoria=document.getElementById('fSvCategoria').value;
+      const preco=parseFloat(document.getElementById('fSvPreco').value);
+      const duracao=parseInt(document.getElementById('fSvDuracao').value,10)||30;
+      const descricao=document.getElementById('fSvDescricao').value.trim();
+      const destaque=document.getElementById('fSvDestaque').checked;
+      if(!nome || isNaN(preco) || preco<0){ throw new Error('Informe nome e preço válidos.'); }
+
+      let imagem = id ? (salaoServicosCache.find(i=>i.id===id)||{}).imagem_url||'' : '';
+      const arquivo=document.getElementById('fSvImgFile').files[0];
+      if(arquivo){
+        saveBtn.disabled=true; saveBtn.textContent='Enviando imagem...';
+        imagem=await uploadImagemSalao(arquivo, 'servicos');
+      }
+
+      saveBtn.disabled=true; saveBtn.textContent='Salvando...';
+      const { data, error } = await sbClient.rpc('salvar_servico', {
+        p_token: currentSession.token, p_id: id, p_nome: nome, p_categoria: categoria, p_preco: preco,
+        p_duracao_min: duracao, p_descricao: descricao, p_imagem_url: imagem, p_destaque: destaque
+      });
+      if(error) throw error;
+      if(id){
+        const idx=salaoServicosCache.findIndex(i=>i.id===id);
+        if(idx>-1) salaoServicosCache[idx]={...salaoServicosCache[idx], nome, categoria, preco, duracao_min:duracao, descricao, imagem_url:imagem, destaque};
+      } else {
+        salaoServicosCache.push({ id:data, nome, categoria, preco, duracao_min:duracao, descricao, imagem_url:imagem, destaque, ordem:salaoServicosCache.length });
+      }
+      renderServicosHome(salaoServicosCache);
+    }
+    renderListManagerList(type);
+  }catch(err){
+    saveBtn.disabled=false; saveBtn.textContent='Salvar';
+    msg.textContent=(err && err.message) ? err.message : 'Não foi possível salvar.';
+    msg.classList.add('show','error');
+  }
+}
+
+async function removeListItem(type, id){
+  if(!confirm('Tem certeza que deseja remover?')) return;
+  const rpcName = type==='equipe' ? 'remover_membro_equipe' : 'remover_servico';
+  const { error } = await sbClient.rpc(rpcName, { p_token: currentSession.token, p_id: id });
+  if(error){ alert('Não foi possível remover: '+error.message); return; }
+  if(type==='equipe'){
+    salaoEquipeCache=salaoEquipeCache.filter(i=>i.id!==id);
+    renderEquipeHome(salaoEquipeCache);
+  } else {
+    salaoServicosCache=salaoServicosCache.filter(i=>i.id!==id);
+    renderServicosHome(salaoServicosCache);
+  }
+  renderListManagerList(type);
+}
+
+/* ---------- "Manter conectado": guarda a sessão no navegador ----------
+   Se a pessoa deixar o checkbox marcado, a sessão (id + token) fica salva
+   em localStorage e, na próxima vez que abrir o site, ela entra direto,
+   sem passar pela tela de login. Se desmarcar, nada é salvo e a sessão
+   dura só enquanto a aba estiver aberta (como já era antes).
+   Observação: isso depende do localStorage do navegador — funciona
+   normalmente quando o site é aberto/hospedado de verdade, mas não
+   persiste dentro da pré-visualização do Claude, já que ela roda em um
+   iframe isolado sem acesso a esse tipo de armazenamento. */
+const SESSION_STORAGE_KEY='bnt_session';
+function persistSession(keep){
+  try{
+    if(keep && currentSession){
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(currentSession));
+    } else {
+      localStorage.removeItem(SESSION_STORAGE_KEY);
+    }
+  }catch(err){
+    console.error('Não foi possível salvar a sessão neste navegador:',err);
+  }
+}
+async function restoreSession(){
+  let saved=null;
+  try{
+    const raw=localStorage.getItem(SESSION_STORAGE_KEY);
+    if(raw) saved=JSON.parse(raw);
+  }catch(err){
+    saved=null;
+  }
+  if(!saved || !saved.id || !saved.role || !saved.token) return;
+
+  currentSession=saved;
+  if(currentSession.role==='cliente'){
+    updateAdminUI();
+    showSalonSearch();
+  } else {
+    await loadSalaoHome();
+    enterApp();
+  }
+}
+restoreSession();
 </script>
 
 </body>
